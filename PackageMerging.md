@@ -575,11 +575,6 @@ The switches are:
 
 Changes should be from the last ubuntu version
 
-#### Check the built package for errors
-
-    $ lintian --pedantic --display-info --verbose --info --profile ubuntu ../at_3.1.23-1ubuntu1.dsc
-
-
 ### Push to your launchpad repository
 
 Now that the package is tested and builds successfully, it's time to push it to your launchpad repository.
