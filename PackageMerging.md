@@ -335,6 +335,10 @@ Now we do some cleaning:
 * Delete changelog, maintainer
 * Possibly rearrange commits if it makes logical sense
 
+So to sum up, if you see any commit with metadata like changelog or 
+update-maintainer which is still inside you interactive rebase, remove 
+those commits. 
+
 You should also squash these kinds of commits together:
 
  * Changes and reversions of those changes, since they resolve to a no-op.
