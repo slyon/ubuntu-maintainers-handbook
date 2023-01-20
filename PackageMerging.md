@@ -135,11 +135,7 @@ The Merge Process
 
 From within the git source tree:
 
-    git ubuntu merge start ubuntu/devel --bug [bug number]
-
-For example:
-
-    $ git ubuntu merge start ubuntu/devel --bug 1802914
+    git ubuntu merge start ubuntu/devel 
 
 This will generate the following tags for you:
 
@@ -149,11 +145,10 @@ This will generate the following tags for you:
 | old/debian | last import tag prior to old/ubuntu without ubuntu suffix in version |
 | new/debian | debian/sid                                                           |
 
-The tags themselves will be name-spaced to the current bug in the format `lp12345678`. Thus, for example, your tags may look like:
 
- * `lp1802914/old/ubuntu`
- * `lp1802914/old/debian`
- * `lp1802914/new/debian`
+ * `old/ubuntu`
+ * `old/debian`
+ * `new/debian`
 
 If `git ubuntu merge start` fails, [do it manually](#start-a-merge-manually)
 
@@ -317,7 +312,7 @@ be verified with `git diff -p lp1803562/old/ubuntu`.
 
 Note: Do this even if there were no commits to split.
 
-    $ git ubuntu tag --split --bug 1803562
+    $ git ubuntu tag --split
 
 #### Purpose of logical tag
 
@@ -363,8 +358,7 @@ Only changelog and control were changed, which is what we want.
 What is the logical tag? 
 The logical tag is a representation of the Ubuntu delta present against a specific historical package version in Ubuntu.
 
-
-    $ git ubuntu tag --logical --bug 1803562
+    $ git ubuntu tag --logical
 
 This may fail with an error like: `ERROR:HEAD is not a defined object in this git repository.`, in which case [do it manually](#create-logical-tag-manually)
 
@@ -480,7 +474,7 @@ Moreover, there is no need to add changelog entries for these changes manually. 
 
 ### Finish the Merge
 
-    $ git ubuntu merge finish ubuntu/devel --bug 1803296
+    $ git ubuntu merge finish ubuntu/devel
 
 * If this fails, [do it manually](#finish-the-merge-manually)
 
@@ -796,7 +790,7 @@ In this case, up to, and including import of 3.1.20-3.1
 
 #### Create reconstruct tag
 
-    $ git ubuntu tag --reconstruct --bug 1802914
+    $ git ubuntu tag --reconstruct
 
 Next step: [Split Commits](#split-commits)
 
