@@ -196,82 +196,63 @@ Get all commit hashes since old/debian using:
 
 
 
->Example: (comes from merging heimdal package)
->
->
->    `git log --stat old/debian..`
->
+Example: (comes from merging heimdal package)
 
->commit 9fc91638b0a50392eb9f79d45d68bc5ac6cd6944 (HEAD ->
->merge-7.8.git20221117.28daf24+dfsg-1-lunar)
->Author: Michal Maloszewski <michal.maloszewski@canonical.com>
->Date:   Tue Jan 17 16:16:01 2023 +0100
->
->    Changelog for 7.8.git20221117.28daf24+dfsg-1
->
-> debian/changelog | 1 -
-> 1 file changed, 1 deletion(-)
->
->
 
->commit e217fae2dc54a0a13e4ac5397ec7d3be527fa243
->Author: Michal Maloszewski <michal.maloszewski@canonical.com>
->Date:   Tue Jan 17 16:13:49 2023 +0100
->
->    update-maintainer
->
-> debian/control | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->
->
+    `git log --stat old/debian..`
 
->commit 3c66d873330dd594d593d21870f4700b5e7fd153
->Author: Michal Maloszewski <michal.maloszewski@canonical.com>
->Date:   Tue Jan 17 16:13:49 2023 +0100
->
->    reconstruct-changelog
->
-> debian/changelog | 10 ++++++++++
-> 1 file changed, 10 insertions(+)
->
->
 
->commit 58b895f5ff6333b1a0956dd83e478542dc7a10d3
->Author: Michal Maloszewski <michal.maloszewski@canonical.com>
->Date:   Tue Jan 17 16:13:46 2023 +0100
->
->    merge-changelogs
->
-> debian/changelog | 68
-> ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> 1 file changed, 68 insertions(+)
->
->
->
->
+```
+commit 9fc91638b0a50392eb9f79d45d68bc5ac6cd6944 (HEAD ->
+merge-7.8.git20221117.28daf24+dfsg-1-lunar)
+Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+Date:   Tue Jan 17 16:16:01 2023 +0100
+
+    Changelog for 7.8.git20221117.28daf24+dfsg-1
+
+ debian/changelog | 1 -
+ 1 file changed, 1 deletion(-)
+
+
+
+commit e217fae2dc54a0a13e4ac5397ec7d3be527fa243
+Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+Date:   Tue Jan 17 16:13:49 2023 +0100
+
+    update-maintainer
+
+ debian/control | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+
+
+commit 3c66d873330dd594d593d21870f4700b5e7fd153
+Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+Date:   Tue Jan 17 16:13:49 2023 +0100
+
+    reconstruct-changelog
+
+ debian/changelog | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+
+
+commit 58b895f5ff6333b1a0956dd83e478542dc7a10d3
+Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+Date:   Tue Jan 17 16:13:46 2023 +0100
+
+    merge-changelogs
+
+ debian/changelog | 68
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
+```
+
 
 It is simple to notice that this command shows us the specific commit,
 what has been changed within the commit (how many files have been
 changed and how many insertions and deletions are there)
 
-    git show [hash] | diffstat
-
-Example:
-
-    $ git show 2af0cb7 | diffstat
-    changelog |    6 ++++++
-    control   |    4 ++--
-    2 files changed, 8 insertions(+), 2 deletions(-)
-
-Here's another typical example, for the nspr package:
-
-    $ git show d7ebe661 | diffstat
-    changelog                                   |  501 ++++++++++++++++++++++++++++
-    control                                     |    3 
-    patches/fix_test_errcodes_for_runpath.patch |   11 
-    patches/series                              |    1 
-    rules                                       |    5 
-    5 files changed, 520 insertions(+), 1 deletion(-)
 
 Any time you see `changelog` and any other file(s) changing in a single commit, it's guaranteed that you'll need to split it; `changelog` should only ever change in it own commit. You should still look over commits to make sure, but this is a dead giveaway.
 
