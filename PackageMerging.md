@@ -43,6 +43,7 @@ Process Steps
    - [Rebase onto New Debian](#rebase-onto-new-debian)
    - [Finish the Merge](#finish-the-merge)
    - [Fix the Changelog](#fix-the-changelog)
+ * [The brief summary of this phase](#a-brief-summary-of-this-phasecheat-sheet)
  * [Upload a PPA](#upload-a-ppa)
    - [Get orig tarball](#get-orig-tarball)
    - [Check the source for errors](#check-the-source-for-errors)
