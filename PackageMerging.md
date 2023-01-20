@@ -325,7 +325,7 @@ Note: Do this even if there were no commits to split.
 
 In this phase, we make a clean, "logical" view of the history. This history is cleaned up (but has the same delta), and only contains the actual changes that affect the package's behavior.
 
-Start a rebase from old/debian:
+We first start with rebase from old/debian:
 
     $ git rebase -i lp1803562/old/debian
 
