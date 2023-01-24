@@ -154,7 +154,9 @@ If `git ubuntu merge start` fails, [do it manually](#start-a-merge-manually)
 
 #### Make a merge branch
 
-Use the merge tracking bug and the ubuntu version it's going into (for example `disco`).
+Use the merge tracking bug and the current ubuntu devel version it's 
+going into (that time when we did that merging the current ubuntu devel 
+was `disco`).
 
     $ git checkout -b merge-lp1802914-disco
 
