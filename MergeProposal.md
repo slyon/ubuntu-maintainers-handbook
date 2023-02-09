@@ -64,7 +64,7 @@ You'll need to have a branch set up for your package.
    * **Target branch:** The release you are changing the package for, example `ubuntu/bionic-devel`
    * **Commit message:** (leave empty)
    * **Description:** Your merge proposal description
-   * **Reviewer:** `canonical-server`
+   * **Reviewer:** `canonical-server-reporter`
 
  * Click "Propose Merge"
 
