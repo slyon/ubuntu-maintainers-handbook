@@ -699,7 +699,7 @@ Submit Merge Proposal
 
 NOTE: Git branch with % in name doesn't work. Use something like _
 
-    $ git ubuntu submit --reviewer canonical-server-packageset-reviewers --target-branch debian/sid
+    $ git ubuntu submit --target-branch debian/sid
     Your merge proposal is now available at: https://code.launchpad.net/~kstenerud/ubuntu/+source/at/+git/at/+merge/358655
     If it looks OK, please move it to the 'Needs Review' state.
 
