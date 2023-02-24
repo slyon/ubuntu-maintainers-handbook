@@ -103,7 +103,7 @@
      ```
 - [ ]  **6.** MP
     - [ ]  Target Branch: ubuntu/\<UbuntuSeries>-devel for BugFixing or debian/sid for merges
-    - [ ]  Reviewers : canonical-server and  ```$(ubuntu-upload-permission --list-uploaders <package>)```
+    - [ ]  Reviewers : ```$(ubuntu-upload-permission --list-uploaders <package>)``` and `canonical-<your-team> (E.g. `canonical-server-reporter` for server team members)
     - [ ]  Description:
         - [ ]  PPA
         - [ ]  Optional: Tags for merge bugs

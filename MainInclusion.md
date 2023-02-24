@@ -21,6 +21,8 @@ The use of git, instead of just adding and removing the subscriptions in Launchp
 
 ### Process for making changes to the Ubuntu Server Team package subscription list
 
+[Note: This is specific to Ubuntu Server team processes; other teams likely have different processes for maintaining their lists of packages.]
+
 This process is to be used when the [main inclusion process](https://wiki.ubuntu.com/MainInclusionProcess) calls for a package to be subscribed by the Ubuntu Server Team.
 
 The git repository can be found [here](https://git.launchpad.net/~canonical-server/+git/team-subscriptions).
@@ -29,7 +31,7 @@ First, prepare the change locally with a git commit that makes the change. Inclu
 
 If the change is mechanical and uncontroversial, then go ahead and push the change with no merge proposal required. For example, if `php7.2` was already in the list and `php8.0` needs to be added, or if a source package has been split into two with no other significant changes.
 
-If the change fundamentally changes the set of packages that we support from a user perspective, then file a merge proposal for the change, and request a review from `~canonical-server`.
+If the change fundamentally changes the set of packages that we support from a user perspective, then file a merge proposal for the change, and request a review from `~canonical-server-reporter`.
 
 If in doubt, please file a merge proposal anyway.
 

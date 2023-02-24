@@ -64,7 +64,7 @@ You'll need to have a branch set up for your package.
    * **Target branch:** The release you are changing the package for, example `ubuntu/bionic-devel`
    * **Commit message:** (leave empty)
    * **Description:** Your merge proposal description
-   * **Reviewer:** `canonical-server-reporter`
+   * **Reviewer:** `canonical-<your-team>` (E.g. `canonical-server-reporter` for server team members)
 
  * Click "Propose Merge"
 
@@ -135,7 +135,7 @@ If a merge proposal should no longer land as-is, you have four options:
 
 1. *Mark it Rejected*. You can do this by changing the Status of the
 merge proposal from near the top left of the Web UI. Doing this will
-remove it from the [Active Reviews page](https://code.launchpad.net/~canonical-server/+activereviews).
+remove it from the [Active Reviews page](https://code.launchpad.net/~canonical-server-reporter/+activereviews).
 
 2. *Force push a replacement*. If the essential topic of the change
 should remain, but the proposed changes be completely replaced, then you

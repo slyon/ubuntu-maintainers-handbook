@@ -430,7 +430,7 @@ Checkout [https://git.launchpad.net/~ubuntu-release/britney/+git/hints-ubuntu](l
 
 File a MP against it with a description indicating the lp bug#, rationale for why the test can and should be skipped, and explanation of what will be unblocked to migration.
 
-Reviewers should be 'canonical-server', 'ubuntu-release', and any archive admins or foundations team members you've discussed the issue with.
+Reviewers should be 'canonical-<your-team>' (E.g. `canonical-server-reporter` for server team members), 'ubuntu-release', and any archive admins or foundations team members you've discussed the issue with.
 
 
 ## Other Common Issues ##
