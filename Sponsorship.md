@@ -19,7 +19,7 @@ For anything non-trivial, it can be a good practice to discuss the change you're
 Finding a Sponsor
 -----------------
 
-There are two formal ways to seek sponsorship.  The first is by filing a Merge Proposal with 'canonical-server' (or other appropriate team) set as a reviewer.  Make sure to mention in your MP comments that you're also in need of sponsorship.  If the reviewer has upload rights they can take care of sponsoring the upload as well.
+There are two formal ways to seek sponsorship.  The first is by filing a Merge Proposal with `canonical-<your-team>` (E.g. `canonical-server-reporter` for server team members) set as a reviewer.  Make sure to mention in your MP comments that you're also in need of sponsorship.  If the reviewer has upload rights they can take care of sponsoring the upload as well.
 
 A second, more traditional approach is to [file a bug report in Launchpad](https://bugs.launchpad.net/ubuntu/+filebug), attach your changes as a [debdiff](http://packaging.ubuntu.com/html/traditional-packaging.html#creating-a-debdiff), and then subscribe *ubuntu-sponsors* (or *ubuntu-security-sponsors* for security issues).  This approach is generally used only if a package is not in git-ubuntu or if a MP can't be generated for some reason.
 
