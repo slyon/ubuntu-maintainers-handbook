@@ -288,6 +288,87 @@ Some packages also have a patches/ directory, with .diff or .patch files that wi
 We'll be creating our own changelog entry later and will discuss the various elements at that point.  But for now note how the first line contains the package name ('hello'), version number ('2.10-2ubuntu1'), and the Ubuntu release codename ('eoan').
 
 
+### Control file in debian directory
+
+Let's focus on the control file that exists inside the debian
+directory.
+The debian/control file contains a number of fields. Each line begins with a
+tag such as Package: or Version:.
+Each field gives us a new bit of knowledge about the package, such as
+package name, package type, version or description.
+You will find it all in way more detail by visiting: https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control
+
+Example of a control file:
+
+```
+Source: ipmitool
+Section: utils
+Priority: optional
+Maintainer: Jörg Frings-Fürst <debian@jff.email>
+Build-Depends:
+ debhelper-compat (= 13),
+ init-system-helpers (>= 1.58),
+ libncurses-dev,
+ libfreeipmi-dev [!hurd-i386],
+ libreadline-dev,
+ libssl-dev
+Standards-Version: 4.6.1.0
+Rules-Requires-Root: no
+Vcs-Git: git://jff.email/opt/git/ipmitool.git
+Vcs-Browser: https://jff.email/cgit/ipmitool.git
+Homepage: https://github.com/ipmitool/ipmitool
+```
+
+Here are just a few tag examples that show where to look and who to contact if you are
+in doubt or trying to figure out where and how to propose changes:
+
+1. Maintainer
+
+This field typically gives us information on who created the package.
+If we have suggestions or want to propose something, we should talk
+to the maintainer whose email is given in that field.
+Here we see that the maintainer is a person from Debian.
+
+2. Homepage
+
+There we might find information about the upstream project's home page URL.
+We can find more subject matter experts there and some helpful information.
+
+3. VCS
+
+There you can find a code and maybe propose a pull request for changes.
+In the example, we can easily spot the entry, which tells us that the
+package is developed in git, but not hosted on [salsa](https://salsa.debian.org/public).
+
+
+
+
+**Let us play through an example of submitting autopkgtest changes:**
+For example, we want to propose autopkgtests that are not present in
+Debian, but they are present in Ubuntu in a specific package that is
+developed. Should we propose this to upstream, Debian git or the
+maintainer?
+
+
+1. Since it is a autopkgtests upstream will not care, so submit it to Debian.
+2. To get it to Debian, we cannot submit a PR on the git, so consider
+mails/creating bug report.<br>
+  2.1. Each package is different, some prefer mails, some bugs, some PRs -worst case you have to find out by trying and asking around.
+3. Depending on the case you might contact the maintainer, file a bug or both.<br>
+  3.1. Check if a bug like that already exists:<br>
+ * https://tracker.debian.org/pkg/ipmitool<br>
+  or<br>
+ * https://bugs.debian.org/cgi-bin/pkgreport.cgi?repeatmerged=no&src=ipmitool<br><br>
+If not, consider creating one using the second link from above.
+Follow the steps listed there.
+If you have a solution to propose ready, attach the debdiff to
+the bug report you created.
+
+If PRs are allowed, creating them from git-ubuntu is easy.
+
+Add the remote salsa repository and then cherry-pick your commit there, which you should describe and push to a remote repository of salsa.
+
+
 The Build Process
 -----------------
 
