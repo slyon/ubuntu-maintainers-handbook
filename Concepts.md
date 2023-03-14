@@ -254,7 +254,7 @@ The next file, `hello_2.7-2.debian.tar.gz` is sometimes referred to as the "Debi
 
 Before we can work on these files, we need to unpack them into a working tree, with the debian changes applied.  A variety of tools exist to do this, including `dget <url>.dsc`, `apt-get source <pkg>` and similar.  A low level way to do this is with the dpkg-source command:
 
-    $ dpkg-source -x hello_2.10-2ubuntu2.dsc 
+    $ dpkg-source -x hello_2.10-2ubuntu2.dsc
     dpkg-source: info: extracting hello in hello-2.10
     dpkg-source: info: unpacking hello_2.10.orig.tar.gz
     dpkg-source: info: unpacking hello_2.10-2ubuntu2.debian.tar.xz
@@ -273,7 +273,7 @@ Looking into the hello-2.10/ directory, you'll notice there has been a "debian/"
     hello-2.10/debian/rules-old
     hello-2.10/debian/watch
     hello-2.10/debian/rules
-              
+
 Some packages also have a patches/ directory, with .diff or .patch files that will be applied to the packaging prior to building it.  The control file contains metadata about the source and binary packages.  The rules file contains build directives.  The changelog file lists the sequence of changes made to the package, with the most recent at the top.  Here's one recent change from hello's changelog:
 
     hello (2.10-2ubuntu1) eoan; urgency=low
@@ -288,15 +288,14 @@ Some packages also have a patches/ directory, with .diff or .patch files that wi
 We'll be creating our own changelog entry later and will discuss the various elements at that point.  But for now note how the first line contains the package name ('hello'), version number ('2.10-2ubuntu1'), and the Ubuntu release codename ('eoan').
 
 
-### Control file in debian directory
+### d/control file and how it helps to submit changes
 
-Let's focus on the control file that exists inside the debian
-directory.
-The debian/control file contains a number of fields. Each line begins with a
-tag such as Package: or Version:.
-Each field gives us a new bit of knowledge about the package, such as
-package name, package type, version or description.
-You will find it all in way more detail by visiting: https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control
+Let's focus on the control file that exists inside the debian directory.
+The debian/control file contains a number of fields.
+Each line begins with a tag such as Package: or Version:.
+Each field gives us a new bit of knowledge about the package,
+such as package name, package type, version or description.
+You will find each field described in way more detail by visiting the [Debian maintainers guide](https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control)
 
 Example of a control file:
 
@@ -319,15 +318,14 @@ Vcs-Browser: https://jff.email/cgit/ipmitool.git
 Homepage: https://github.com/ipmitool/ipmitool
 ```
 
-Here are just a few tag examples that show where to look and who to contact if you are
-in doubt or trying to figure out where and how to propose changes:
+Here are just a few examples of fields that help to understand where to look and who to contact in regard to this package:
 
 1. Maintainer
 
 This field typically gives us information on who created the package.
 If we have suggestions or want to propose something, we should talk
 to the maintainer whose email is given in that field.
-Here we see that the maintainer is a person from Debian.
+Here we see that the maintainer is a person (not a group).
 
 2. Homepage
 
@@ -341,32 +339,40 @@ In the example, we can easily spot the entry, which tells us that the
 package is developed in git, but not hosted on [salsa](https://salsa.debian.org/public).
 
 
+#### General process to decide where to submit changes:
+
+1. Decide where it needs to go based on what kind of change you have
+1. To get it to Debian:
+    1. Each package is different, some prefer mails, some bugs, some PRs - worst case you have to find out by trying and asking around.
+        1. Entries in **d/control** can help you to identify git, mails or project to check what they prefer
+    1. If PRs are allowed, creating them from git-ubuntu is easy.
+        * Find and fork the repository referenced from **d/control**
+        * Create a branch and then cherry-pick the commits there
+        * Ensure only what is needed for Debian is in the commit content, commit message and changelog
+        * Push to your fork of the repository on salsa, and open a pull request describing what problem you solve
+   1. If we should submit bug
+       1. Check if a bug like that already exists:
+           * https://tracker.debian.org/pkg/ipmitool
+           * https://bugs.debian.org/cgi-bin/pkgreport.cgi?repeatmerged=no&src=ipmitool
+       1. If not, consider creating a new one following [these steps](https://www.debian.org/Bugs/Reporting).
+       1. If you have a solution ready to propose, attach the debdiff to the bug report you created.
+   1. If we need to send a mail
+       1. Use the maintainer field in **d/control** as shown above to know which person or group to contact
+       1. If you have a solution ready to propose, attach the debdiff to the mail
+1. To get it Upstream
+    1. look at the homepage field in **d/control** to check how upstreams contribution rules are defined
 
 
-**Let us play through an example of submitting autopkgtest changes:**
-For example, we want to propose autopkgtests that are not present in
-Debian, but they are present in Ubuntu in a specific package that is
-developed. Should we propose this to upstream, Debian git or the
-maintainer?
+#### Let us play through an example:
 
+We want to propose autopkgtests that are not present in Debian, but they
+are present in Ubuntu in a package. Should we propose this to upstream,
+Debian git, Debian bugs or the maintainer?
 
-1. Since it is a autopkgtests upstream will not care, so submit it to Debian.
-2. To get it to Debian, we cannot submit a PR on the git, so consider
-mails/creating bug report.<br>
-  2.1. Each package is different, some prefer mails, some bugs, some PRs -worst case you have to find out by trying and asking around.
-3. Depending on the case you might contact the maintainer, file a bug or both.<br>
-  3.1. Check if a bug like that already exists:<br>
- * https://tracker.debian.org/pkg/ipmitool<br>
-  or<br>
- * https://bugs.debian.org/cgi-bin/pkgreport.cgi?repeatmerged=no&src=ipmitool<br><br>
-If not, consider creating one using the second link from above.
-Follow the steps listed there.
-If you have a solution to propose ready, attach the debdiff to
-the bug report you created.
-
-If PRs are allowed, creating them from git-ubuntu is easy.
-
-Add the remote salsa repository and then cherry-pick your commit there, which you should describe and push to a remote repository of salsa.
+1. Since this example is about an autopkgtests, upstream will not care.
+2. In this case the git repository does not allow PRs, so we need to fall back to bugs or mail
+3. Then we created a bug to refer to
+4. Then we submitted the debdiff to that bug
 
 
 The Build Process
