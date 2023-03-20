@@ -135,7 +135,7 @@ The Merge Process
 
 From within the git source tree:
 
-    git ubuntu merge start ubuntu/devel 
+    git ubuntu merge start ubuntu/devel
 
 This will generate the following tags for you:
 
@@ -154,8 +154,8 @@ If `git ubuntu merge start` fails, [do it manually](#start-a-merge-manually)
 
 #### Make a merge branch
 
-Use the merge tracking bug and the current ubuntu devel version it's 
-going into (that time when we did that merging the current ubuntu devel 
+Use the merge tracking bug and the current ubuntu devel version it's
+going into (that time when we did that merging the current ubuntu devel
 was `disco`).
 
     $ git checkout -b merge-lp1802914-disco
@@ -190,7 +190,69 @@ In this phase, you split out old-style commits that lumped multiple changes toge
     9c3cf29 (tag: pkg/import/3.1.20-3.1) Import patches-unapplied version 3.1.20-3.1 to debian/sid
     ...
 
-Get all commit hashes since old/debian, and:
+Get all commit hashes since old/debian using:
+
+    git log --stat old/debian..
+
+
+
+>Example: (comes from merging heimdal package)
+>
+>
+>    `git log --stat old/debian..`
+>
+
+>commit 9fc91638b0a50392eb9f79d45d68bc5ac6cd6944 (HEAD ->
+>merge-7.8.git20221117.28daf24+dfsg-1-lunar)
+>Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+>Date:   Tue Jan 17 16:16:01 2023 +0100
+>
+>    Changelog for 7.8.git20221117.28daf24+dfsg-1
+>
+> debian/changelog | 1 -
+> 1 file changed, 1 deletion(-)
+>
+>
+
+>commit e217fae2dc54a0a13e4ac5397ec7d3be527fa243
+>Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+>Date:   Tue Jan 17 16:13:49 2023 +0100
+>
+>    update-maintainer
+>
+> debian/control | 3 ++-
+> 1 file changed, 2 insertions(+), 1 deletion(-)
+>
+>
+
+>commit 3c66d873330dd594d593d21870f4700b5e7fd153
+>Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+>Date:   Tue Jan 17 16:13:49 2023 +0100
+>
+>    reconstruct-changelog
+>
+> debian/changelog | 10 ++++++++++
+> 1 file changed, 10 insertions(+)
+>
+>
+
+>commit 58b895f5ff6333b1a0956dd83e478542dc7a10d3
+>Author: Michal Maloszewski <michal.maloszewski@canonical.com>
+>Date:   Tue Jan 17 16:13:46 2023 +0100
+>
+>    merge-changelogs
+>
+> debian/changelog | 68
+> ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> 1 file changed, 68 insertions(+)
+>
+>
+>
+>
+
+It is simple to notice that this command shows us the specific commit,
+what has been changed within the commit (how many files have been
+changed and how many insertions and deletions are there)
 
     git show [hash] | diffstat
 
@@ -337,9 +399,9 @@ Now we do some cleaning:
 * Delete changelog, maintainer
 * Possibly rearrange commits if it makes logical sense
 
-So to sum up, if you see any commit with metadata like changelog or 
-update-maintainer which is still inside you interactive rebase, remove 
-those commits. 
+So to sum up, if you see any commit with metadata like changelog or
+update-maintainer which is still inside you interactive rebase, remove
+those commits.
 
 You should also squash these kinds of commits together:
 
@@ -354,14 +416,14 @@ At the end of the squash and clean phase, the only delta you should see from the
 
     $ git diff split/2%4.18-1ubuntu1 |diffstat
      changelog |  762 --------------------------------------------------------------
-     control   |    3 
+     control   |    3
      2 files changed, 1 insertion(+), 764 deletions(-)
 
 Only changelog and control were changed, which is what we want.
 
 #### Create logical tag
-    
-What is the logical tag? 
+
+What is the logical tag?
 The logical tag is a representation of the Ubuntu delta present against a specific historical package version in Ubuntu.
 
     $ git ubuntu tag --logical
@@ -403,11 +465,11 @@ Continue with the rebase:
 
     $ git add debian/control
     $ git rebase --continue
-    
+
 #### Corollaries
 
 Mistake corrections are squashed.
-Changes that fix mistakes made previous in the same delta are squashed against them. 
+Changes that fix mistakes made previous in the same delta are squashed against them.
 
 For example:
 1. 2.3-4ubuntu1 was the previous merge.
@@ -415,7 +477,7 @@ For example:
 3. 2.3-4ubuntu3 fixed the typo in debian/rules to say “--build-better” instead.
 4. When the logical tag is created, there will be only one commit relating to –build-better, which omits any mention of the typo.
 
-Note: if a mistake exists in the delta itself, then it is retained. 
+Note: if a mistake exists in the delta itself, then it is retained.
 For example, if 2.3-4ubuntu3 was never uploaded and the typo is still present in 2.3-4ubuntu2, then logical/2.3.-4ubuntu2 should contain a commit adding the configure flag with the typo still present.
 
 
@@ -534,19 +596,41 @@ Notice above that you must also change the `changelog` rebase command to `fixup`
 
 #### No changes to debian/changelog
 
-The range old/ubuntu..logical/<version> should contain no changes to debian/changelog at all. 
+The range old/ubuntu..logical/<version> should contain no changes to debian/changelog at all.
 We do not consider this part of the logical delta. So any commits that contain only changes to debian/changelog should be dropped.
 
-#### Tip 
-    
+#### Tip
+
 If you diff your final logical tag against the Ubuntu package it analyses, then the diff should be empty, except:
 1. All changes to debian/changelog: we deliberately exclude these from the logical tag, relying on commit messages instead.
-2. The change that “update-maintainer” introduced, and (rarely) similar changes like a change to Vcs-Git headers to point to an Ubuntu VCS instead.    
+2. The change that “update-maintainer” introduced, and (rarely) similar changes like a change to Vcs-Git headers to point to an Ubuntu VCS instead.
    For the purposes of this workflow, these are not considered part of our “logical delta”, and instead re-added at the end.
 
-    
+
+A brief summary of this phase/Cheat sheet
+-----------------------------------------
 
 
+1. `rmadison <package_name>`
+2. `rmadison -u debian <package_name>`
+3. `git ubuntu clone <package_name> <package_name>-gu`
+4. `cd <package_name>-gu`
+5. `git ubuntu merge start ubuntu/devel`
+6. `git checkout -b
+merge-<version_of_debian_unstable>-<current_ubuntu_devel_name>`
+7. `git log --stat old/debian..`
+8. `git ubuntu tag --split` -> if nothing to split, type that command
+straight away
+9. `git rebase -i old/debian`
+10. `git diff split/(use autocomplete <tab> to autocomplete version)`
+11. `git ubuntu tag --logical`
+12. `git tag` -> check if the new tag exists
+13. `git rebase -i --onto new/debian old/debian`
+14. `quilt push -a --fuzz=0`
+15. `quilt pop -a
+16. If there is problem with working directory which is not clean and
+contains ./pc -> do: `git clean -ffxd`
+17. `git ubuntu merge finish ubuntu/devel`
 
 
 Upload a PPA
@@ -600,7 +684,7 @@ Run the suggested command to push to your repository.
 
 #### Push your lp tags
 
-    
+
     To ssh://git.launchpad.net/~kstenerud/ubuntu/+source/at
      * [new tag]         split/3.1.20-3.1ubuntu2 -> split/3.1.20-3.1ubuntu2
      * [new tag]         logical/3.1.20-3.1ubuntu2 -> logical/3.1.20-3.1ubuntu2
@@ -818,7 +902,7 @@ Merge changelogs of old ubuntu and new debian:
 
     $ git show new/debian:debian/changelog >/tmp/debnew.txt
     $ git show old/ubuntu:debian/changelog >/tmp/ubuntuold.txt
-    $ merge-changelog /tmp/debnew.txt /tmp/ubuntuold.txt >debian/changelog 
+    $ merge-changelog /tmp/debnew.txt /tmp/ubuntuold.txt >debian/changelog
     $ git commit -m "Merge changelogs" debian/changelog
 
 Create new changelog entry for the merge:
