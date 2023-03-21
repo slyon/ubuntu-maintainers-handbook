@@ -156,8 +156,8 @@ If `git ubuntu merge start` fails, [do it manually](#start-a-merge-manually)
 #### Make a merge branch
 
 Use the merge tracking bug and the current ubuntu devel version it's
-going into (that time when we did that merging the current ubuntu devel
-was `disco`).
+going into (in the example below doing a merge the current ubuntu devel
+was `disco` and the `merge` bug for the case was `1802914`).
 
     $ git checkout -b merge-lp1802914-disco
 
@@ -191,7 +191,7 @@ In this phase, you split out old-style commits that lumped multiple changes toge
     9c3cf29 (tag: pkg/import/3.1.20-3.1) Import patches-unapplied version 3.1.20-3.1 to debian/sid
     ...
 
-Get all commit hashes since old/debian using:
+Get all commit hashes since old/debian and check the summary what they changed using:
 
     git log --stat old/debian..
 
@@ -252,10 +252,10 @@ Date:   Tue Jan 17 16:13:46 2023 +0100
 
 It is simple to notice that this command shows us the specific commit,
 what has been changed within the commit (how many files have been
-changed and how many insertions and deletions are there)
+changed and how many insertions and deletions are there).
 
 
-Any time you see `changelog` and any other file(s) changing in a single commit, it's guaranteed that you'll need to split it; `changelog` should only ever change in it own commit. You should still look over commits to make sure, but this is a dead giveaway.
+Any time you see `changelog` and any other file(s) changing in a single commit, it's guaranteed that you'll need to split it; `debian/changelog` should only ever be changed in commits of its own, without touching any other file. You should still look over commits to make sure, but this is a dead giveaway.
 
 Another giveaway would be a commit named `Import patches-unapplied version 1.2.3ubuntu4 to ubuntu/cosmic-proposed`, where it's applying from an ubuntu source rather than a debian one (in this case `ubuntu4`).
 
@@ -378,12 +378,8 @@ We first start with rebase from old/debian:
 Now we do some cleaning:
 
 * Delete imports, etc
-* Delete changelog, maintainer
+* Delete any commit only changing metadata like changelog, maintainer
 * Possibly rearrange commits if it makes logical sense
-
-So to sum up, if you see any commit with metadata like changelog or
-update-maintainer which is still inside you interactive rebase, remove
-those commits.
 
 You should also squash these kinds of commits together:
 
@@ -604,14 +600,13 @@ merge-<version_of_debian_unstable>-<current_ubuntu_devel_name>`
 8. `git ubuntu tag --split` -> if nothing to split, type that command
 straight away
 9. `git rebase -i old/debian`
-10. `git diff split/(use autocomplete <tab> to autocomplete version)`
-11. `git ubuntu tag --logical`
-12. `git tag` -> check if the new tag exists
-13. `git rebase -i --onto new/debian old/debian`
-14. `quilt push -a --fuzz=0`
-15. `quilt pop -a
-16. If there is problem with working directory which is not clean and
-contains ./pc -> do: `git clean -ffxd`
+10. Drop metadata changes and reorder/merge/split commits.
+11. `git diff split/`
+12. `git ubuntu tag --logical`
+13. `git show logical/<version>` -> check if the new tag exists
+14. `git rebase -i --onto new/debian old/debian`
+15. `quilt push -a --fuzz=0`
+16. `quilt pop -a`
 17. `git ubuntu merge finish ubuntu/devel`
 
 
@@ -666,6 +661,7 @@ Run the suggested command to push to your repository.
 
 #### Push your lp tags
 
+$ git push <your-git-remote> old/ubuntu old/debian new/debian reconstruct/<version> logical/<version> split/<version>
 
     To ssh://git.launchpad.net/~kstenerud/ubuntu/+source/at
      * [new tag]         split/3.1.20-3.1ubuntu2 -> split/3.1.20-3.1ubuntu2
