@@ -329,6 +329,38 @@ All autopkgtests follow this general format, although the output from the tests 
 Beyond "regular" test case failures like this one, autopkgtest failures can also occur due to missing or incorrect dependencies, test framework timeouts, and other issues.  Each of these is discussed in more detail below.
 
 
+##  Flaky or actually regressed in release ##
+
+Tests might break due to the changes we applied, catching that is the reason
+the tests exist in the first place. But sometimes the tests do fail and are not
+flaky, in that case often another unrelated change to the test environment made
+it - now - break permamently.
+
+If you have checked the recent test run history as suggested above and
+have retried often enough that it seems unreasonable to do it more often.
+Then you might to tell the autopkgtest infrastructure that it shouldn't expect
+this test to pass.
+
+This can now be done via a migration-reference run. To do that, open the same
+URL you'd use to rerun the test, but instead of `package` + `version` as trigger
+you would add `migration-reference/0`.
+That is a special key, which will re-run the test without any special packages,
+just as it is in the target release.
+
+Example:
+```
+https://autopkgtest.ubuntu.com/request.cgi?release=RELEASE&arch=ARCH&package=SRCPKG&trigger=migration-reference/0
+```
+
+If this fails too, it will update the expectations, so that other packages that
+are trying to migrate will not be required to pass.
+
+If this does not fail, then your assumption that your upload/change wasn't
+related most likely is wrong.
+
+More details about that can be found in the [How to run autopkgtests of a package against the version in the release pocket](https://wiki.ubuntu.com/ProposedMigration#How_to_run_autopkgtests_of_a_package_against_the_version_in_the_release_pocket).
+
+
 Special Cases
 -------------
 
