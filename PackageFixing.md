@@ -449,16 +449,16 @@ Note: You'll see your branch and merge proposal in the `Related branches` becaus
 
 ### Minor Release Exceptions
 
-There is a particular kind of [special case SRU](https://wiki.ubuntu.com/StableReleaseUpdates#Documentation_for_Special_Cases) which is called a MRE (Minor release exception).
-The work to get those exceptions granted will ensure that we are confident, that the minor releases created by upstream take care about testing, abi stability and many other things that are important for any SRU.
-Each case is slightly different, which is the reason that each of them gets their own discussion and their own accepted process how that particular minor release will be served.
+There is a particular kind of [special case SRU](https://wiki.ubuntu.com/StableReleaseUpdates#Documentation_for_Special_Cases) which is called a MRE (Minor Release Exception).
+The work to get these exceptions granted ensures our confidence that the minor releases created by upstream take care about testing, abi & api stability, smooth upgradability and many other things that are important for an SRU.
+Each case is slightly different, which is the reason why each of them gets their own discussion and their own accepted process of how that particular minor release will be served.
 
-When we in the server team prepare those special SRU updates they are following all the normal SRU rules as outlined here, but in addition will also follow all steps and requiements that have been outlined in the particulare exception.
+When we (in the server team) prepare those special SRU updates they follow all the normal SRU rules as outlined here, but in addition will also follow all steps and requirements outlined in the particular exception.
 That usually includes additional checks and validations.
 
 There is one thing though, which we as the server team can do in addition, for any MRE that we work on.
 That is, to double check release notes and changelogs to ensure that there was nothing that would unexpectedly break the "stable" in SRU.
-While being rather low after having passed an MRE process, there always is a small chance left that the upstream project might have a slightly different stance/decision policy in regard to stable releases.
+After having passed an MRE process, there is always a small chance left that the upstream project might have a slightly different stance/decision policy in regard to stable releases.
 This check by our team will help to be able to serve MREs in the stable and reliable fashion our users expect them to be.
 To be clear, the expectation is to rarely find something in this check, but this is a classic "better safe than sorry" story.
 
