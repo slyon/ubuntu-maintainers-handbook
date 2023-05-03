@@ -329,7 +329,7 @@ All autopkgtests follow this general format, although the output from the tests 
 Beyond "regular" test case failures like this one, autopkgtest failures can also occur due to missing or incorrect dependencies, test framework timeouts, and other issues.  Each of these is discussed in more detail below.
 
 
-##  Flaky or actually regressed in release ##
+##  Flaky or actually regressed in release
 
 Tests might break due to the changes we applied, catching that is the reason
 the tests exist in the first place. But sometimes the tests do fail and are not
