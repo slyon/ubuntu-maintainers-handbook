@@ -463,7 +463,7 @@ If this patch fails because the changes in `ssh-ignore-disconnected.patch` are a
 
 Removing `1aed93f` will remove the patch.
 
- * Save the commit message from `1aed93f` for later including in the `Dropped Changes` section of the new changelog entry.
+ * Save the commit message from `1aed93f` for later including in the `Drop Changes` section of the new changelog entry.
  * `git rebase -i 7d9d752` and delete commit `1aed93f`.
 
 #### Unapply patches before continuing
@@ -493,7 +493,7 @@ Git ubuntu attempts to put together a changelog entry, but it will likely have p
 
 If you dropped any changes (due to upstream fixes), you must note them in the changelog entry:
 
-      * Dropped Changes:
+      * Drop Changes:
         - Foo: change to bar
           [Fixed in 1.2.3-4]
 
