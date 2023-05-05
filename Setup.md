@@ -79,12 +79,12 @@ Then afterwards one can double check group membership via:
     my_user : my_user adm cdrom sudo dip plugdev lpadmin sambashare libvirt sbuild lxd
 ```
 
-If any group is missing for your user one can fix it up via `groupadd` like:
+If any of the following groups is missing for your user you can fix it up via `useradd` like:
 
 ```
-    $ sudo groupadd lxd
-    $ sudo groupadd sbuild
-    $ sudo groupadd libvirt
+    $ sudo adduser my_user lxd
+    $ sudo adduser my_user sbuild
+    $ sudo adduser my_user libvirt
 ```
 
 
