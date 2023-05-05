@@ -62,6 +62,14 @@ handled in different ways:
   the SRU triggers a restart of the service an that's when the user
   notices the problem and files a bug, thinking it was the update that
   introduced it.
+  
+* Security Regression Bugs.
+  A report of a regression caused by a security update should be passed
+  to the security team. Tag the bug 'regression-update', mark it "Public
+  Security" and subscribe ~ubuntu-security. This will notify them
+  appropriately. You may also wish to ping them in #ubuntu-security on
+  Libera.Chat to ensure handover, but since they monitor Public Security
+  bugs this is not strictly required.
 
 * Severe Bugs.  
   Urgently important issues such as ones with potential
