@@ -549,29 +549,6 @@ If you added any new changes, they should be in their own section in the changel
 
     $ git commit debian/changelog -m changelog
 
-#### Rebase and squash changelog
-
-Now you must rebase and squash the changelog changes into the "reconstruct-changelog" commit. Do a rebase with the new/debian tag:
-
-    $ git rebase -i new/debian
-
-Change the order from:
-
-    pick e431327 merge-changelogs
-    pick cf3b93a reconstruct-changelog
-    pick 21cea1a update-maintainer
-    pick 08c2f4d changelog
-
-to:
-
-    pick e431327 merge-changelogs
-    pick cf3b93a reconstruct-changelog
-    f 08c2f4d changelog
-    pick 21cea1a update-maintainer
-
-Notice above that you must also change the `changelog` rebase command to `fixup` (or `f`).
-
-
 #### No changes to debian/changelog
 
 The range old/ubuntu..logical/<version> should contain no changes to debian/changelog at all.
