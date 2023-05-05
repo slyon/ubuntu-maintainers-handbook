@@ -9,15 +9,17 @@ We can have Launchpad do it against a PPA, or use an LXC container or a VM to ru
 PPA-Based Autopkgtest Testing
 -----------------------------
 
-First, if you haven't already, grab `lp-test-ppa` from the ubuntu-helpers repository:
+First, if you haven't already, install `ppa-dev-tools`:
 
-    $ git clone https://git.launchpad.net/~ubuntu-server/+git/ubuntu-helpers
-    $ ubuntu-helpers/cpaelzer/lp-test-ppa --help
-    usage: lp-test-ppa [-h] ....
+    $ sudo snap install ppa-dev-tools
+    $ ppa --help
+    usage: ppa [-h] [-C CONFIG_FILENAME] [-D] [-V] [--dry-run] [-v] [-q]
+           {create,desc,destroy,list,set,show,status,tests,wait} ...
+
 
 Next, you'll need to [set up a PPA and build your package in it](PackageBuilding.md) as described in the "Building Binary Packages via PPA" section.  Once it has built binaries for the architecture(s) you intend to test,
 
-  $ lp-test-ppa --showurl ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
+  $ ppa tests --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
 
 This prints to the console a bunch of lines like:
 
@@ -28,11 +30,11 @@ This prints to the console a bunch of lines like:
 
 The autopkgtest requests require special permissions to run; as a new developer you'll need to ask your co-workers or a coredev to load them.  If you don't know where else to ask, the #ubuntu-devel IRC channel is suitable.  The --showurl parameter causes these URLs to be printed out so they're easier to cut-and-paste into email or chat channels.
 
-Once you've gained permissions to run autopkgtests, though, you can load each of these URLs in your web browser yourself, which will cause the appropriate autopkgtests to run.  If you omit the --showurl parameter, lp-test-ppa will instead display clickable links, making it even more convenient.
+Once you've gained permissions to run autopkgtests, though, you can load each of these URLs in your web browser yourself, which will cause the appropriate autopkgtests to run.  If you omit the --show-urls parameter, `ppa tests` will instead display clickable links, making it even more convenient.
 
-After a while, run `lp-test-ppa` again to see how the tests are coming along:
+After a while, run `ppa tests` again to see how the tests are coming along:
 
-  $ lp-test-ppa ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
+  $ ppa tests ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
   ...
   Results: (from http://autopkgtest.ubuntu.com/results/.../?format=plain)
     postfix @ amd64:

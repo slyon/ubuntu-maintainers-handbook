@@ -69,10 +69,9 @@
     
     - [ ] Optional: Autopackage output (DEP-8 tests)
       - [ ] Locally.
-      - [ ] Using the PPA's package (Recommended):  ```lp-test-ppa ${ppa_address} --release ${codename} --showpass```
-    
-    
-    
+      - [ ] Using the PPA's package (Recommended):  ```ppa tests ${ppa_address} --release ${codename}```
+
+
 - [ ]  **4.** Optional: PPA : <LINK>
     
     ```bash
