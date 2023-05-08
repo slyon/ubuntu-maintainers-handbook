@@ -447,19 +447,21 @@ Note: Keep the original description as-is, in a section called `[Original Descri
 Note: You'll see your branch and merge proposal in the `Related branches` because of the (LP: #NNNNNN) in the changelog entry.
 
 
-### Minor Release Exceptions
+### SRU Exceptions
 
-There is a particular kind of [special case SRU](https://wiki.ubuntu.com/StableReleaseUpdates#Documentation_for_Special_Cases) which is called a MRE (Minor Release Exception).
+There is a particular kind of [special case SRU](https://wiki.ubuntu.com/StableReleaseUpdates#Documentation_for_Special_Cases) which is called either an Minor Release Exception (MRE) or an SRU exception.
+In the former we assume upstream is so stable and similar to our needs, process and philosophy that not much checks need to be done, in the latter we admit that there is more to check - but both do more than isolated individual bug fixing than a usual SRU would do.
 The work to get these exceptions granted ensures our confidence that the minor releases created by upstream take care about testing, abi & api stability, smooth upgradability and many other things that are important for an SRU.
-Each case is slightly different, which is the reason why each of them gets their own discussion and their own accepted process of how that particular minor release will be served.
+Each case is slightly different, which is the reason why each of them gets their own discussion and their own [accepted process listed in SRU special cases](https://wiki.ubuntu.com/StableReleaseUpdates#Documentation_for_Special_Cases) of how that particular minor release will be served.
 
-When we (in the server team) prepare those special SRU updates they follow all the normal SRU rules as outlined here, but in addition will also follow all steps and requirements outlined in the particular exception.
+When we (in the server team) prepare those special SRU updates they follow all the normal SRU rules as outlined here, but in addition will also follow all steps and requirements outlined in the particular SRU exception.
 That usually includes additional checks and validations.
 
-There is one thing though, which we as the server team can do in addition, for any MRE that we work on.
-That is, to double check release notes and changelogs to ensure that there was nothing that would unexpectedly break the "stable" in SRU.
-After having passed an MRE process, there is always a small chance left that the upstream project might have a slightly different stance/decision policy in regard to stable releases.
-This check by our team will help to be able to serve MREs in the stable and reliable fashion our users expect them to be.
+There is one more thing though which, we as the server team, can do in addition - for any SRU exception upload that we work on.
+That is, to double check upstream release notes and changelogs to ensure that there was really nothing that would unexpectedly break the "stable" in SRU.
+That is worthwhile for MREs where we expect nothing should (tm) happen and even more so for general SRU exceptions.
+After having passed an SRU exception process, there is always a small chance left that the upstream project might have a slightly different stance/decision policy in regard to stable releases.
+This check by our team will help to be able to serve those updates in the stable and reliable fashion our users expect them to be.
 To be clear, the expectation is to rarely find something in this check, but this is a classic "better safe than sorry" story.
 
 
