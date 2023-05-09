@@ -272,11 +272,6 @@ SKIP_PROPOSED="1"
 DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
 ```
 
-Configure GnuPG for SBuild:
-
-```bash
-$ sbuild-update --keygen
-```
 
 > **Note**: 
 > For more info, see the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
