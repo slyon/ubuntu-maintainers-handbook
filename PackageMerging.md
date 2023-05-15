@@ -737,6 +737,7 @@ NOTE: Git branch with % in name doesn't work. Use something like _
     Your merge proposal is now available at: https://code.launchpad.net/~kstenerud/ubuntu/+source/at/+git/at/+merge/358655
     If it looks OK, please move it to the 'Needs Review' state.
 
+* Using a target branch of `debian/sid` may seem wrong, but is a workaround for LP: #1976112
 * If this fails, [do it manually](#submit-merge-proposal-manually)
 
 
