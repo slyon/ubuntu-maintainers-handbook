@@ -633,7 +633,7 @@ Run the suggested command to push to your repository.
 
 #### Push your lp tags
 
-$ git push <your-git-remote> old/ubuntu old/debian new/debian reconstruct/<version> logical/<version> split/<version>
+    $ git push <your-git-remote> old/ubuntu old/debian new/debian reconstruct/<version> logical/<version> split/<version>
 
     To ssh://git.launchpad.net/~kstenerud/ubuntu/+source/at
      * [new tag]         split/3.1.20-3.1ubuntu2 -> split/3.1.20-3.1ubuntu2
