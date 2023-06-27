@@ -200,7 +200,7 @@ Get all commit hashes since old/debian and check the summary what they changed u
 Example: (comes from merging heimdal package)
 
 
-    `git log --stat old/debian..`
+    git log --stat old/debian..
 
 
 ```
