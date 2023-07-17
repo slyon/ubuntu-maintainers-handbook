@@ -161,7 +161,7 @@ committing.
 > is committed.
 
 The updated changelog (and maybe an updated control file, in case
-`update-maintainer`` needs to be run) will be committed later (all separately).
+`update-maintainer` needs to be run) will be committed later (all separately).
 This simplifies a later rebase.
 
 ## Further reading

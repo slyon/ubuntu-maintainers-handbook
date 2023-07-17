@@ -104,15 +104,18 @@ The downsides to PPAs are:
 
 ### Set the version string
 
-For the PPA, we need to change the version in the changelog that's lower than
-the official version we plan to release. Since the tilde `~` character sorts
-lower than everything else in launchpad, we can simply append `~<string>1` to
-the version string in `debian/changelog`. For example:
+For the PPA, we should change the version in the changelog to one that is lower
+than the official version we plan to release. For example:
 
-```bash
+```diff
 -postfix (3.3.0-1ubuntu0.1) bionic; urgency=medium
 +postfix (3.3.0-1ubuntu0.1~bionic1) bionic; urgency=medium
 ```
+
+Since the tilde `~` character sorts lower than everything else in launchpad,
+we can simply append `~<string>1` to the version string in `debian/changelog`.
+See more details about the sorting algorithm here:
+[`deb-version(7)`](https://manpages.ubuntu.com/manpages/lunar/en/man7/deb-version.7.html)
 
 Having a numeric digit in this suffix is important because once Launchpad has
 accepted your upload, it won't accept another one with the same version number
@@ -236,7 +239,7 @@ Launchpad also sends "status updates" notification mails, so monitor your
 inbox.
 
 
-## Build binary packages locally with `sbuild
+## Build binary packages locally with `sbuild`
 
 Assuming you have configured `sbuild` properly, you can use it to build the
 binary package:
@@ -255,5 +258,5 @@ $ sbuild --debbuildopts='--buildinfo-option=-O'
 
 For more information, see:
 
-* https://packaging.ubuntu.com/html/setting-up-sbuild.html
+* https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/Setup.md#software-sbuild
 * https://wiki.debian.org/sbuild
