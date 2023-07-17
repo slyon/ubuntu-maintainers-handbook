@@ -114,7 +114,7 @@ guidelines to help you when creating your changelog entries.
 
 ### Version string format
 
-See https://manpages.ubuntu.com/manpages/lunar/en/man7/deb-version.7.html
+See https://wiki.ubuntu.com/SecurityTeam/UpdatePreparation#Update_the_packaging
 
 Most version changes, except upstream merges, will follow this format:
 

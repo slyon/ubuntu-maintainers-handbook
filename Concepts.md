@@ -83,7 +83,7 @@ shortcuts for them too.
 
 There are binary and source packages, each existing in parallel namespaces.
 
-In practice, binary and source packages are stored together in a single shared
+In practice, binary and source packages are stored together in a master
 directory. Their namespaces are parallel because they have different filename
 endings (`.deb` for binary packages, `.dsc` for source packages).
 
@@ -113,7 +113,7 @@ bash_4.3-7ubuntu1.7_amd64.deb       2017-05-17 17:03    561K
 bash_4.3-7ubuntu1.7_i386.deb        2017-05-17 17:03    535K
 ```
 
-All packages for all Ubuntu releases are stored together in one shared
+All packages for all Ubuntu releases are stored together in one master
 directory, and pointed to by the various releases. This means that you cannot
 have two packages with the same version, even across releases, but you can have
 multiple releases point to the same package version.
@@ -529,7 +529,7 @@ If you click on the latest version in the `+source/some-package` page, you'll
 see (under `Builds`) the latest status of the builds for each architecture.
 
 Once built, the build artifacts are queued for publication, and eventually get
-pushed to the primary APT mirror. If the build fails, the build info page will
+pushed to the APT master mirror. If the build fails, the build info page will
 show the build log.
 
 
