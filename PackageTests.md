@@ -1,356 +1,235 @@
-# Running package tests
+Running Package Tests
+=====================
 
-Packages will have their own tests under `debian/tests`. We need to run those
-to ensure there are no regressions.
+Packages will have their own tests under `debian/tests`. We need to run those to ensure there are no regressions.
 
-We can have Launchpad do it against a PPA, or use an LXC container, or a VM to
-run the autopkgtests locally. Each approach has its benefits, so they're all
-worth learning, but the first option (PPA-based testing) produces results most
-similar to what occurs in the archive itself, so we'll start there.
+We can have Launchpad do it against a PPA, or use an LXC container or a VM to run the autopkgtests locally.  Each approach has its benefits, so they're all worth learning, but the first option (PPA-based testing) produces results most similarly to what occurs in the archive itself, so we'll start there.
 
 
-## 1) PPA-based autopkgtest testing
+PPA-Based Autopkgtest Testing
+-----------------------------
 
 First, if you haven't already, install `ppa-dev-tools`:
 
-```bash
-$ sudo snap install ppa-dev-tools
-$ ppa --help
-usage: ppa [-h] [-C CONFIG_FILENAME] [-D] [-V] [--dry-run] [-v] [-q]
-       {create,desc,destroy,list,set,show,status,tests,wait} ...
-```
+    $ sudo snap install ppa-dev-tools
+    $ ppa --help
+    usage: ppa [-h] [-C CONFIG_FILENAME] [-D] [-V] [--dry-run] [-v] [-q]
+           {create,desc,destroy,list,set,show,status,tests,wait} ...
 
-Next, you'll need to
-[set up a PPA and build your package in it](PackageBuilding.md) as described
-in the "Build binary packages via PPA" section. Once it has built binaries for
-the architecture(s) you intend to test:
 
-```bash
-$ ppa tests --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
-```
+Next, you'll need to [set up a PPA and build your package in it](PackageBuilding.md) as described in the "Building Binary Packages via PPA" section.  Once it has built binaries for the architecture(s) you intend to test,
+
+  $ ppa tests --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
 
 This prints to the console a bunch of lines like:
 
-```text
- Using Release Packages ♻️ 
- http://autopkgtest.ubuntu.com/request.cgi?release=bionic&arch=amd64&package=postfix&ppa=kstenerud/postfix-postconf-segfault-1753470&trigger=postfix/3.3.0-1ubuntu0.1~ppa1
- http://autopkgtest.ubuntu.com/request.cgi?release=bionic&arch=s390x&package=postfix&ppa=kstenerud/postfix-postconf-segfault-1753470&trigger=postfix/3.3.0-1ubuntu0.1~ppa1
+  Using Release Packages ♻️ 
+  http://autopkgtest.ubuntu.com/request.cgi?release=bionic&arch=amd64&package=postfix&ppa=kstenerud/postfix-postconf-segfault-1753470&trigger=postfix/3.3.0-1ubuntu0.1~ppa1
+  http://autopkgtest.ubuntu.com/request.cgi?release=bionic&arch=s390x&package=postfix&ppa=kstenerud/postfix-postconf-segfault-1753470&trigger=postfix/3.3.0-1ubuntu0.1~ppa1
   ...
-```
 
-The autopkgtest requests require special permissions to run; as a new
-developer you'll need to ask your co-workers or a coredev to load them. If you
-don't know where else to ask, the #ubuntu-devel IRC channel is suitable. The
-`--showurl` parameter causes these URLs to be printed out so they're easier to
-cut-and-paste into email or chat channels.
+The autopkgtest requests require special permissions to run; as a new developer you'll need to ask your co-workers or a coredev to load them.  If you don't know where else to ask, the #ubuntu-devel IRC channel is suitable.  The --showurl parameter causes these URLs to be printed out so they're easier to cut-and-paste into email or chat channels.
 
-Once you've gained permissions to run autopkgtests, you can load each of these
-URLs in your web browser yourself, which will cause the appropriate
-autopkgtests to run. If you omit the `--show-urls` parameter, `ppa tests` will
-instead display clickable links, making it even more convenient.
+Once you've gained permissions to run autopkgtests, though, you can load each of these URLs in your web browser yourself, which will cause the appropriate autopkgtests to run.  If you omit the --show-urls parameter, `ppa tests` will instead display clickable links, making it even more convenient.
 
 After a while, run `ppa tests` again to see how the tests are coming along:
 
-```bash
-$ ppa tests ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
-...
-Results: (from http://autopkgtest.ubuntu.com/results/.../?format=plain)
-  postfix @ amd64:
-    14.06.22 21:57:01 ✅     Triggers: postfix/3.3.0-1ubuntu0.1~ppa1
-...
-```
+  $ ppa tests ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
+  ...
+  Results: (from http://autopkgtest.ubuntu.com/results/.../?format=plain)
+    postfix @ amd64:
+      14.06.22 21:57:01 ✅     Triggers: postfix/3.3.0-1ubuntu0.1~ppa1
+  ...
 
-If anything failed, you can load up the log URLs to see details about why.
+You can load up the log URLs to see details about why anything failed.
 
 
-## Prepare a testing image
+Preparing a Testing Image
+-------------------------
 
-If you use a container or VM, you'll need an image to test from. `autopkgtest`
-will build a suitable image for you. You may want to regenerate the image from
-time to time to cut down on the number of updates it must run.
+You'll need an image to test from. `autopkgtest` will build a suitable image for you. You may want to regenerate the image from time to time to cut down on the number of updates it must run.
 
-The type of image you can use (chroot, container, or VM) depends on the
-restrictions in `debian/tests/control`(see this page
-[in the autopkgtest docs](https://salsa.debian.org/ci-team/autopkgtest/-/blob/master/doc/README.package-tests.rst)).
+The type of image you can use (chroot, container, or VM) depends on the restrictions in `debian/tests/control`(see https://salsa.debian.org/ci-team/autopkgtest/-/blob/master/doc/README.package-tests.rst)
 
 Important restrictions:
 
-* `breaks-testbed`: This test is liable to break the testbed system. VM or container recommended.
-* `isolation-machine`: You must use a VM to run these tests.
-* `isolation-container`: You must use a VM or container to run these tests.
-* `needs-reboot`: The test reboots the machine, so you must use a VM or container.
+ * `breaks-testbed`: This test is liable to break the testbed system. VM or container recommended.
+ * `isolation-machine`: You must use a VM to run these tests.
+ * `isolation-container`: You must use a VM or container to run these tests.
+ * `needs-reboot`: The test reboots the machine, so you must use a VM or container.
 
 
-## Testing with a VM
+#### Building a VM Image
 
-### Build a VM image
+Create an image like this (replacing focal with your release of choice):
 
-Create an image like this (replacing `focal` with your release of choice):
+    $ autopkgtest-buildvm-ubuntu-cloud -r focal -v --cloud-image-url http://cloud-images.ubuntu.com/daily/server
 
-```bash
-$ autopkgtest-buildvm-ubuntu-cloud -r focal -v \
- --cloud-image-url http://cloud-images.ubuntu.com/daily/server
-```
+Note: Use `-m` to specify a closer mirror or `-p` to use a local proxy if it's slow.
 
-> **Note**: 
-> Use `-m` to specify a closer mirror or `-p` to use a local proxy
-> if it's slow.
-
-Copy the resulting image (`autopkgtest-focal-amd64.img`) to a common directory
-like `/var/lib/adt-images`.
+Copy the resulting image (autopkgtest-focal-amd64.img) to a common directory like `/var/lib/adt-images`
 
 
-### Run the tests (manually)
+#### Building a Container Image
 
-Make sure you're one directory up from your package directory and run:
-
-```bash
-$ autopkgtest -U -s -o dep8-mypackage mypackage/ \
- -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
-```
-
-Where:
-
-* `-U`: Run `apt-get upgrade`.
-* `-s`: Stop and give you a shell if there is a failure. Good for debugging.
-* `-o dep8-mypackage`: Put your package name in here. Writes output report to
-  the directory `dep8-mypackage`.
-* `mypackage/`: Put your package name here. The trailing slash tells it to
-  interpret this as a directory rather than a package name.
-* Everything after the `--` tells it how to run the tests.
-* `qemu`: shorthand for `autopkgtest-virt-qemu`.
-
-
-### Run the tests (using the PPA)
-
-Make sure you're one directory up from your package directory and run:
-
-```bash
-$ autopkgtest -U -s -o dep8-mypackage-ppa \
- --setup-commands="sudo add-apt-repository -y -u -s \
- ppa:mylaunchpaduser focal-mypackage-fixed-something-1234567" -B mypackage \
- -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
-```
-
-Where (in `setup-commands`):
-
-* `-y`: Assume "yes" for all questions.
-* `-u`: Run `apt-update`.
-* `-s`: Add the source line as well.
-* `-B`: Don't build.
-
-> **Note**: 
-> In this case, the package name **doesn't** have a trailing slash because we
-> want to install the package.
-
-
-## Testing with a container
-
-### Build a container image
-
-```bash
-$ autopkgtest-build-lxd images:ubuntu/impish/amd64
-```
+    $ autopkgtest-build-lxd images:ubuntu/impish/amd64
 
 You should see an autopkgtest image now when you run `lxc image list`.
 
-### Run the tests (using the PPA)
 
-The command only differs from the VM method after the `--` part. For example:
+### Run the Tests
 
-```bash
-$ autopkgtest -U -s -o dep8-mypackage-ppa \
- --setup-commands="sudo add-apt-repository -y -u -s \
- ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" -B mypackage \
- -- lxd autopkgtest/ubuntu/focal/amd64
+#### In a VM, Manual
+
+Make sure you're one directory up from your package directory and run:
+
+    $ autopkgtest -U -s -o dep8-mypackage mypackage/ -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
+
+Where:
+
+ * `-U`: run apt-get upgrade
+ * `-s`: stop and give you a shell if there is a failure. Good to debug
+ * `-o dep8-mypackage`: Put your package name in here. Writes output report to the directory dep8-mypackage.
+ * `mypackage/`: Put your package name here. The trailing slash tells it to interpret this as a directory rather than a package name.
+
+Everything after the `--` tells it how to run the tests. `qemu` is shorthand for `autopkgtest-virt-qemu`.
+
+
+#### In a VM, Using the PPA
+
+    $ autopkgtest -U -s -o dep8-mypackage-ppa --setup-commands="sudo add-apt-repository -y -u -s ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" -B mypackage -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
+
+Where (in setup-commands):
+
+ * `-y`: Assume "yes" for all questions
+ * `-u`: Run apt-update
+ * `-s`: Add the source line as well
+ * `-B`: Don't build
+
+Note: In this case, the package name **doesn't** have a trailing slash because we want to install the package.
+
+
+#### In a Container, Using the PPA
+
+The command only differs after the `--` part. For example:
+
+    $ autopkgtest -U -s -o dep8-mypackage-ppa --setup-commands="sudo add-apt-repository -y -u -s ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" -B mypackage -- lxd autopkgtest/ubuntu/focal/amd64
+
+#### In Canonistack
+
+This is by far the closest in terms of "similarity" to the real autopkgtests since they also run in such an environment.
+But it needs some preparation. First of all you must have been *unlocked for* and have set up [Canonistack](https://wiki.canonical.com/InformationInfrastructure/IS/CanoniStack-BOS01) for yourself.
+
+In going through the set up process for Canonistack, you'll have created an openstack RC file that sets region, auth and other environment variables. Go ahead and source this file, if you haven't already.
+Then you'd look for the image you want to boot like:
+
 ```
-
-## Testing in the cloud with Canonistack
-
-This is by far the closest in terms of "similarity" to the real autopkgtests
-since they also run in such an environment, but it needs some preparation.
-
-First of all, you must have been *unlocked for* and have set up
-[Canonistack](https://wiki.canonical.com/InformationInfrastructure/IS/CanoniStack-BOS01)
-for yourself.
-
-In going through the setup process for Canonistack, you'll have created an
-OpenStack RC file that sets region, auth and other environment variables. Go
-ahead and source this file, if you haven't already.
-
-Then you'll look for the image you want to boot as in the following example:
-
-```bash
 $ source ~/.canonistack/novarc_bos01
 $ openstack image list | grep -i arm64 | grep hirsute
 | 4d24cfbe-b6a5-4d84-8c50-b9f025d0dd43 | ubuntu/ubuntu-hirsute-daily-arm64-server-20201124-disk1.img    | active |
 | 1cfeacff-f04a-4bce-ab92-9d8fec7e5edb | ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img    | active |
 ```
 
-Make sure that you have installed `glance`. The `nova` script we will use in
-the following example needs it. You can install it by either using `apt`:
-
-```bash
+Make sure that you have installed `glance`. The `nova` script we will use in the following example needs it. 
+You can install it by either using apt: 
+```
 $ sudo apt update && sudo apt install python3-glanceclient
 ```
-
-Or `pip`:
-
-```bash
+or pip:
+```
 $ pip install python3-glanceclient
 ```
 
-Finally, to
-[run the test on Canonistack](https://wiki.ubuntu.com/proposedMigration#Reproducing_tests_in_the_cloud)
-is quite similar to the other invocations. Just two things change compared to
-"local" `autopkgtest-runner` invocations.
+[Finally to run the test on Canonistack](https://wiki.ubuntu.com/ProposedMigration#Reproducing_tests_in_the_cloud) is quite similar to the other invocations. Just two things change compared to "local" autopkgtest-runner invocations.
 
-* `--setup-commands setup-testbed` will have autopkgtest execute
-  `/usr/share/autopkgtest/setup-commands/setup-testbed` on the target which
-  converts any system into a system that is ready for autopkgtest to log in.
-* `-- ssh -s nova` achieves two things:
-  * First, it selects the ssh virtualization driver `autopkgtest-virt-ssh` to
-    reach out to a remote system.
-  * It also selects the setup script `nova` from
-    `/usr/share/autopkgtest/ssh-setup/nova`, which happens to know how to deal
-    with OpenStack.
+ * `--setup-commands setup-testbed` will have autopkgtest execute `/usr/share/autopkgtest/setup-commands/setup-testbed` on the target which converts any system into a system that is ready for autopkgtest to log in
+ * `-- ssh -s nova` achieves two things
+  * First of all it selects the ssh virtualization driver `autopkgtest-virt-ssh` to reach out to a remote system
+  * Furthermore it selects the setup script `nova` from `/usr/share/autopkgtest/ssh-setup/nova` which happens to know how to deal with openstack
 
-```bash
-# General pattern
-$ autopkgtest \
- --no-built-binaries \
- --apt-upgrade \
- --setup-commands setup-testbed \
- --shell-fail <mypackage>.dsc \
- -- ssh -s nova -- \
- --flavor m1.small \
- --image <image> \
- --keyname <yourkeyname>
+```
+    # General pattern
+    $ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail <mypackage>.dsc -- ssh -s nova -- --flavor m1.small --image <image> --keyname <yourkeyname>
 ```
 
-```bash
-# One example
-$ autopkgtest \
- --no-built-binaries \
- --apt-upgrade \
- --setup-commands setup-testbed \
- --shell-fail systemd_247.3-1ubuntu2.dsc \
- -- ssh -s nova -- \
- --flavor m1.small \
- --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
- --keyname paelzer_canonistack-bos01
+```
+    # One example
+    $ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc -- ssh -s nova -- --flavor m1.small --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img --keyname paelzer_canonistack-bos01
 ```
 
-You can use all the usual OpenStack terms, e.g. other flavors, sizing the VM
-used, or other images to run the same test on different releases or
-architectures.
+You can use usual openstack terms, like other flavors to size the VM that is used or other images to run the same test on different releases or architectures.
 
-## Common options you'll need
+### Common options you'll need
 
-### Run against `-proposed` or its subsets
+#### Run against -proposed or subsets thereof
 
-Quite often, a test fails by running against new packages in the `-proposed`
-pocket. In this case, it's helpful to check if the test needs other packages
-from `-proposed` to resolve the issue. This can easily be done via the
-`--apt-pocket` option.
+Quite often a test fails by running against new packages in the proposed pocket. Then it often will be helpful to check if the test needs other packages from proposed to resolve the issue. That can easily be done via the option `--apt-pocket`.
 
-A test will usually run against all packages in `-release` plus the new
-candidate from `-proposed`, which looks like this:
+Commonly a test will run against all packages in release plus the new candidate from proposed, that would look like:
 
-```bash
---apt-pocket=proposed=src:yourpkg
+```
+    --apt-pocket=proposed=src:yourpkg
 ```
 
-To run against all packages in `-proposed`, you can remove the reference to a
-specific package.
+To run against all packages that are in proposed, you'd simply not refer to a package
 
-```bash
---apt-pocket=proposed
+```
+    --apt-pocket=proposed
 ```
 
-If instead you need a given set of packages, but not *everything* else from
-`-proposed`, you can use a comma-separated list:
+And if instead you'd need a given set of packages, but not everything else from proposed you can use a comma separated list
 
-```bash
---apt-pocket=proposed=src:srcpkg1,srcpkg2
+```
+    --apt-pocket=proposed=src:srcpkg1,srcpkg2
 ```
 
-Here are some examples testing various combinations against `octave-parallel`:
+Examples testing various combinarions against octave-parallel:
 
-```bash
+```
 # normal
-$ autopkgtest --apt-pocket=proposed \
- --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc \
- -- qemu ~/work/autopkgtest-hirsute-amd64.img
+autopkgtest --apt-pocket=proposed --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc -- qemu ~/work/autopkgtest-hirsute-amd64.img
 # all proposed
-$ autopkgtest --apt-pocket=proposed \
- --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc \
- -- qemu ~/work/autopkgtest-hirsute-amd64.img
+autopkgtest --apt-pocket=proposed --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc -- qemu ~/work/autopkgtest-hirsute-amd64.img
 # specific subset
-$ autopkgtest --apt-pocket=proposed=src:octave,octave-parallel,octave-struct \
- --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc \
- -- qemu ~/work/autopkgtest-hirsute-amd64.img
+autopkgtest --apt-pocket=proposed=src:octave,octave-parallel,octave-struct --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc -- qemu ~/work/autopkgtest-hirsute-amd64.img
 ```
 
-### Size the test VM
+#### Size the test VM
 
-One might often wonder "hmm, might this work with more CPU/memory?". At least
-in the case of QEMU and nova, that can be controlled.
+Quite often one might wonder "hmm, might this work with more CPU/memory"
+At least in the case of qemu and nova that can be controlled.
 
-For `qemu` you can add `--ram-size` and `--cpus`. For example, to run the same
-test in different sizes:
+For `qemu` you can add `--ram-size` and `--cpus`
 
-```bash
-$ autopkgtest --no-built-binaries --apt-upgrade \
- --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc \
- -- qemu --ram-size=1536 --cpus 1 ~/work/autopkgtest-hirsute-amd64.img
-$ autopkgtest --no-built-binaries --apt-upgrade \
- --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc \
- -- qemu --ram-size=4096 --cpus 4 ~/work/autopkgtest-hirsute-amd64.img
+Example to run the same test in different sizes:
+
+```
+autopkgtest --no-built-binaries --apt-upgrade --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc -- qemu --ram-size=1536 --cpus 1 ~/work/autopkgtest-hirsute-amd64.img
+autopkgtest --no-built-binaries --apt-upgrade --shell-fail octave-parallel_4.0.0-2ubuntu1~ppa1.dsc -- qemu --ram-size=4096 --cpus 4 ~/work/autopkgtest-hirsute-amd64.img
 ```
 
-For `nova`, you use
-[OpenStack flavors](https://docs.openstack.org/nova/latest/user/flavors.html).
-If you're unsure which ones are defined you can check with
-`openstack flavor list`. Here's an example of passing `nova` different sizes:
+For `nova` one has to use [openstack flavors](https://docs.openstack.org/nova/latest/user/flavors.html). If unsure which ones are defined you can check with `openstack flavor list`. An example passing nova different sizes then would be:
 
-```bash
-$ autopkgtest --no-built-binaries --apt-upgrade \
- --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc \
- -- ssh -s nova -- \
- --flavor m1.small \
- --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
- --keyname paelzer_canonistack-bos01
-$ autopkgtest --no-built-binaries --apt-upgrade \
- --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc \
- -- ssh -s nova -- \
- --flavor cpu4-ram8-disk20 \
- --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
- --keyname paelzer_canonistack-bos01
-$ autopkgtest --no-built-binaries --apt-upgrade \
- --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc \
- -- ssh -s nova -- \
- --flavor cpu8-ram16-disk50 \
- --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
- --keyname paelzer_canonistack-bos01
+```
+$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc -- ssh -s nova -- --flavor m1.small --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img --keyname paelzer_canonistack-bos01
+$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc -- ssh -s nova -- --flavor cpu4-ram8-disk20 --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img --keyname paelzer_canonistack-bos01
+$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail systemd_247.3-1ubuntu2.dsc -- ssh -s nova -- --flavor cpu8-ram16-disk50 --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img --keyname paelzer_canonistack-bos01
 ```
 
-### Restrict networking
+#### Restrict networking
 
-Some DEP-8 test failures occur due to the autopkgtest environment's network
-restrictions. A good clue that this has happened is when the tests reliably
-pass locally, yet fail after uploading to Launchpad. Other clues include:
+Some DEP8 test failures occur due to the autopkgtest environment's
+network restrictions.  A good clue of this is when the tests pass
+reliably locally yet fail after uploading to Launchpad.  Other clues
+include test logs mentioning port errors, inaccessible URLs or IPs, and
+upstream language packaging tools like npm, compose, pip, etc.
 
-* Test logs mentioning port errors
-* Inaccessible URLs or IPs
-* Upstream language packaging tools like `npm`, `compose`, `pip`, etc.
+The network restrictions can be mimicked by invoking autopkgtest locally
+with an internal proxy.  This isn't replicating that 100% as there are
+also firewalls in place, but if in doubt it often is worth to retry a
+local VM based repro with this to check if it fails this way.
 
-The network restrictions can be mimicked by invoking autopkgtest locally with
-an internal proxy. This won't fully replicate it as there are also firewalls
-in place, but when in doubt it often is worthwhile to retry with a local
-VM-based repro to check if it fails this way.
-
-To do this, add the internal proxy (needs VPN up); or if you want
+What you need to do is adding the internal proxy (needs VPN up); or if you want
 to try another proxy of your choice that is rather restrictive. Then add this
 to the call of autopkgtest `--env='no_proxy=127.0.0.1,127.0.1.1,localhost,localdomain,novalocal,internal,archive.ubuntu.com,security.ubuntu.com,ddebs.ubuntu.com,changelogs.ubuntu.com,ppa.launchpad.net' --env='http_proxy=http://squid.internal:3128'`
 
@@ -359,7 +238,7 @@ Example when we tracked down an issue with ulfius:
 $ autopkgtest --env='no_proxy=127.0.0.1,127.0.1.1,localhost,localdomain,novalocal,internal,archive.ubuntu.com,security.ubuntu.com,ddebs.ubuntu.com,changelogs.ubuntu.com,ppa.launchpad.net' --env='http_proxy=http://squid.internal:3128' --no-built-binaries --apt-upgrade --shell-fail ulfius_2.7.1-3.dsc  -- qemu ~/work/autopkgtest-impish-amd64.img
 ```
 
-## Save the Results
+### Save the Results
 
 You'll see the tests run:
 
