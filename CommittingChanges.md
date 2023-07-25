@@ -70,7 +70,7 @@ See https://wiki.ubuntu.com/SecurityTeam/UpdatePreparation#Update_the_packaging
 
 Most version changes, except upstream merges, will follow this format:
 
-| Previous version             | Security update                               |
+| Previous version             | Recommended version                           |
 | ---------------------------- | --------------------------------------------- |
 | 2.0-2                        | 2.0-2ubuntu0.1                                |
 | 2.0-2ubuntu2                 | 2.0-2ubuntu2.1                                |
