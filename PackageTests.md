@@ -159,6 +159,33 @@ $ pip install python3-glanceclient
 
 You can use usual openstack terms, like other flavors to size the VM that is used or other images to run the same test on different releases or architectures.
 
+
+### Armhf is special
+
+Canonistack does not have native armhf nodes.
+Due to that the autopkgtests on that architecture actually run in armhf containers on arm64 hosts.
+To recreate that environment you'd first need to get a canonistack arm64 instance and there combine all of the above like:
+
+```
+$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail <mypackage>.dsc -- lxd ubuntu-daily:mantic/armhf
+```
+
+These days normal images mostly work, but for completeness (and because you read this being cursed by tracking a special case) there is also a form which creates an image adapted to the use for autopkgtest.
+
+```
+# prep armhf container image for autopkgtest
+$ autopkgtest-build-lxd ubuntu-daily:mantic/armhf
+
+# check the created container
+$ lxc image list
+...
+| autopkgtest/ubuntu/mantic/armhf | d5d93f552340 | yes    | autopkgtest Ubuntu mantic armhf       | armv7l       | CONTAINER | 571.57MB | Aug 25, 2023 at 8:56am (UTC) |
+...
+
+# run a test in that container
+$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail <mypackage>.dsc -- lxd autopkgtest/ubuntu/mantic/armhf
+```
+
 ### Common options you'll need
 
 #### Run against -proposed or subsets thereof
