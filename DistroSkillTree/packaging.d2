@@ -1,0 +1,181 @@
+Paths to Distro Contribution: {
+  basics: Basics {
+    study: Initial Studies {
+      concepts: {
+        link: https://github.com/canonical/ubuntu-maintainers-handbook
+        shape: hexagon
+      }
+      git-ubuntu: {
+        shape: hexagon
+      }
+      debian: Debian Policy {
+        link: https://www.debian.org/doc/debian-policy/
+        shape: hexagon
+      }
+    }
+
+    start: Initial tasks {
+      bsb: Bite Sized Bugs {
+        shape: circle
+      }
+      tmerges: Trivial Package Merges {
+        shape: circle
+      }
+    }
+
+    study -> start
+  }
+
+  intermediate: {
+    dep8tests: Understand dep-8 {
+      link: https://salsa.debian.org/ci-team/autopkgtest/blob/master/doc/README.package-tests.rst # how to specify tests
+      shape: hexagon
+    }
+    autopkgtests: Add Autopkgtests {
+      link: https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/PackageTests.md # ppa-based-autopkgtest-testing
+      shape: circle
+    }
+    dep8tests -> autopkgtests
+
+    cmerges: Complex Package Merges {
+      shape: circle
+    }
+    propose-migration: Propose Migration {
+      link: https://wiki.ubuntu.com/ProposedMigration
+      shape: circle
+    }
+    cmerges -> propose-migration
+
+    SRU: {
+      link: https://wiki.ubuntu.com/StableReleaseUpdates
+      shape: hexagon
+    }
+    doSRU: Do SRUs {
+      shape: circle
+    }
+    SRU -> doSRU
+  }
+
+  advanced: Advanced {
+    up-dev: Upstream Subimssions of Fixes / Features {
+      shape: circle
+    }
+    up-delta: Upstream Subimssions of Delta {
+      shape: circle
+    }
+
+    FFE: {
+      link: https://wiki.ubuntu.com/FreezeExceptionProcess
+      shape: hexagon
+    }
+    doFFE: Do an FFE {
+      shape: circle
+    }
+    FFE -> doFFE
+
+    plusonelearn: +1 {
+      link: https://wiki.ubuntu.com/PlusOneMaintenanceTeam
+      shape: hexagon
+    }
+    plusoneshadow: +1 Shadowing {
+      shape: circle
+    }
+    plusonelearn -> plusoneshadow
+
+    milestones: Milestones and Exceptions {
+      shape: circle
+    }
+  }
+
+  debian: Optional activty in Debian {
+    contribute: {
+      link: https://www.debian.org/doc/manuals/maint-guide/
+      shape: circle
+    }
+    DM: {
+      link: https://wiki.debian.org/DebianMaintainer
+      shape: diamond
+    }
+    DD: {
+      link: https://wiki.debian.org/DebianDeveloper
+      shape: diamond
+    }
+    contribute -> DM
+    DM -> DD
+  }
+
+  expert: Expert {
+    ltransitions: Library Transitions {
+      link: https://wiki.debian.org/Teams/ReleaseTeam/Transitions
+      shape: hexagon
+    }
+    ptransitions: Package Transitions {
+      link: https://wiki.debian.org/PackageTransition
+      shape: hexagon
+    }
+    doltransitions: Library Transitions {
+      link: https://wiki.debian.org/Teams/ReleaseTeam/Transitions
+      shape: Circle
+    }
+    doptransitions: Package Transitions {
+      link: https://wiki.debian.org/PackageTransition
+      shape: Circle
+    }
+    ltransitions -> doltransitions
+    ptransitions -> doptransitions
+
+    smir: Study MIR {
+      link: https://github.com/canonical/ubuntu-mir/edit/main/README.md
+      shape: hexagon
+    }
+    mir: Do a MIR {
+      shape: circle
+    }
+    seeds: Seed change {
+      shape: circle
+    }
+    smir -> seeds
+    smir -> mir
+  }
+
+  ready: Team / Mentor says Ready for more {
+    shape: diamond
+  }
+  upload: PPU or Group Upload {
+    shape: diamond
+  }
+  motu: {
+    shape: diamond
+    link: https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInMOTU.md
+  }
+  core: Core Developer {
+    shape: diamond
+    link: https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInCoreDev.md
+  }
+
+  duties {
+    plusone: +1 {
+      shape: circle
+    }
+    sponsoring: Sponsoring {
+      shape: circle
+    }
+    mentoring: Mentoring {
+      shape: circle
+    }
+  }
+
+  basics -> ready
+  ready -> intermediate
+  intermediate -> upload
+  upload -> advanced
+  advanced -> motu
+  advanced -> debian
+  motu -> expert
+  expert -> core
+  core -> duties
+
+  intermediate -> intermediate: Rack up enough to apply for Package or Group uploads
+  advanced -> advanced: Rack up enough of this and all of the above to apply for Motu
+  expert -> expert: Rack up enough of this and all of the above to apply for Core-dev
+}
