@@ -1,9 +1,13 @@
 # Distro Skill Tree
 
-This page exists to show a visual diagram of a path to get more permissions
-with respect to Ubuntu packaging whether your goal is to get certain
-packageset access, MOTU, core dev, this page should help as a guide to follow.
+This page contains an interactive chart for navigating paths to obtaining
+permissions to upload changes to Ubuntu archive. This can be used as a model
+to help build an application for things such as certain packagesets, 
+[MOTU](https://wiki.ubuntu.com/MOTU), 
+[CoreDev](https://wiki.ubuntu.com/UbuntuDevelopers#Ubuntu_Core_Developers) 
+as examples.
 
+![Skill Tree](./packaging.svg)
 
 # Generation
 
@@ -13,5 +17,3 @@ command:
 ```
 d2 --theme=300 --dark-theme=200 -l elk --pad 0 ./packaging.d2
 ```
-
-![Skill Tree](./packaging.svg)
