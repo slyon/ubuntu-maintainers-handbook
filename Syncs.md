@@ -1,11 +1,10 @@
 Syncs
 =====
 
-When we are doing a [merge](https://github.com/canonical/ubuntu-maintainers-handbook/blob/master/PackageMerging.md#merging),
-immersed in detecting logical changes and doing commit splits,
+When we are doing a [merge](PackageMerging.md#merging), immersed in detecting logical changes and doing commit splits,
 we might suddenly realise that there are no Ubuntu changes left because Debian or upstream has incorporated
-them (the logical change have became redundant). Sometimes we recognise this because everything becomes an
-[empty commit](https://github.com/canonical/ubuntu-maintainers-handbook/blob/c338c20208865a3cc42d0d464783df4f21b2e10b/PackageMerging.md#empty-commits) appears,
+them (the logical changes have became redundant). Sometimes we recognise this because everything becomes an
+[empty commit](PackageMerging.md#empty-commits),
 or simply because we have been very careful to check the upstream or Debian changelog before starting the merge task.
 
 Then, the merge task evolves in a sync task.
@@ -28,7 +27,7 @@ In our case (we have an empty Ubuntu delta before Debian Import Freeze - check R
 - Specify that the MP is for a sync request.
 - Write down how did you find it is a sync: changelog entries, step in where the empty commit message appeared, point to upstream git repository, etc ...
 - Change the changelog using *dch -i* to get a new version with *ubuntu1* suffix and check the Ubuntu series for which the package is to be built. The text in that new changelog entry should say "build debian version to verify before a sync".
-- Build the source package as recommended [here](https://github.com/canonical/ubuntu-maintainers-handbook/blob/master/PackageBuilding.md#using-dpkg-buildpackage) and upload to the PPA you're using in this MP.
+- Build the source package as recommended [here](PackageBuilding.md#using-dpkg-buildpackage) and upload to the PPA you're using in this MP.
 
 An example of this situation is [here](https://code.launchpad.net/~mirespace/ubuntu/+source/freeipmi/+git/freeipmi/+merge/407014).
 
