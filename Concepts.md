@@ -32,7 +32,7 @@ After an Ubuntu version is released, the software packages are altered only for
 pressing reasons such as fixing defects or updating critically important
 components. These post-release updates to the stable versions of Ubuntu are
 referred to as "Stable Release Updates", or "SRUs". SRU work is a primary
-activity of Ubuntu packagers, and will be discussed through this document.
+activity of Ubuntu packagers, and will be discussed throughout this document.
 
 In addition to the regular Ubuntu releases, every 2 years (i.e. every 4th
 release) a release is declared to be a Long Term Support (LTS) release. The LTS
@@ -45,9 +45,10 @@ One of the greatest ways Ubuntu differs from Debian is in its infrastructure,
 which is built around a GitHub-like project repository named Launchpad.
 
 Launchpad and GitHub operate on similar principles. Each has users/groups and
-projects. But while GitHub puts users at the top level, where users and groups
-begin with a tilde (e.g., https://launchpad.net/~ubuntu-server), Launchpad puts
-projects at the top level (e.g., https://launchpad.net/ubuntu)
+projects. But while GitHub puts users at the top level (e.g.
+https://github.com/canonical), Launchpad does so with projects (e.g.,
+https://launchpad.net/ubuntu). Users and groups in Launchpad begin with a tilde
+instead (e.g., https://launchpad.net/~ubuntu-server).
 
 
 ### Quick access
@@ -83,7 +84,7 @@ shortcuts for them too.
 
 There are binary and source packages, each existing in parallel namespaces.
 
-In practice, binary and source packages are stored together in a master
+In practice, binary and source packages are stored together in one shared
 directory. Their namespaces are parallel because they have different filename
 endings (`.deb` for binary packages, `.dsc` for source packages).
 
@@ -113,10 +114,10 @@ bash_4.3-7ubuntu1.7_amd64.deb       2017-05-17 17:03    561K
 bash_4.3-7ubuntu1.7_i386.deb        2017-05-17 17:03    535K
 ```
 
-All packages for all Ubuntu releases are stored together in one master
+All packages for all Ubuntu releases are stored together in one shared
 directory, and pointed to by the various releases. This means that you cannot
-have two packages with the same version, even across releases, but you can have
-multiple releases point to the same package version.
+have two of the same package with the same version, even across releases, but
+you can have multiple releases point to the same package version.
 
 Once a package is uploaded to Launchpad, it cannot be replaced, even if the
 package Launchpad uploads to the APT repository gets deleted (for whatever
@@ -457,8 +458,8 @@ and who to contact about this package:
 
 2. **Homepage**
 
-   Here we can find information about the upstream project's home page URL, and
-   we can find subject matter experts.
+   Here we can find information about the upstream project's home page URL,
+   which may lead us to more information and subject matter experts.
 
 3. **VCS**
 

@@ -161,9 +161,27 @@ committing.
 > is committed.
 
 The updated changelog (and maybe an updated control file, in case
-`update-maintainer`` needs to be run) will be committed later (all separately).
+`update-maintainer` needs to be run) will be committed later (all separately).
 This simplifies a later rebase.
+
+#### About update-maintainer
+
+`update-maintainer` is a script that checks the `Maintainer` field of a
+`debian/control` file and (if needed):
+
+* Sets the `Maintainer` field to:
+  `Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>`
+* Adds a property `XSBC-Original-Maintainer` with the original value of the
+  `Maintainer` field.
+
+If a debian package introduces a change that does not work on Ubuntu, we need
+to change the package to fix the bug. Now when someone has a problem with the
+Ubuntu package they could contact the Debian maintainer and report the bug to
+them, although they have nothing to do with our modification. Therefore we
+change the value of the `Maintainer` field.
+
 
 ## Further reading
 
 * https://wiki.debian.org/UsingQuilt
+* https://wiki.ubuntu.com/DebianMaintainerField

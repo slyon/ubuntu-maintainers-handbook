@@ -79,7 +79,7 @@ guidelines to help you when creating your changelog entries.
   relevant bugs.
 
 * Use exactly "LP: #NNNNNNN" or "(LP: #NNNNNNN)" to reference bugs that are
-  being fixed by the upload. The version using brackets is useful to neatly
+  being fixed by the upload. The version using parentheses is useful to neatly
   fit the bug references into standard English sentences. Bug references must
   be whitespace-perfect as they are picked up by regular expressions in the
   tooling to ultimately auto-close the bugs.
@@ -114,7 +114,7 @@ guidelines to help you when creating your changelog entries.
 
 ### Version string format
 
-See https://wiki.ubuntu.com/SecurityTeam/UpdatePreparation#Update_the_packaging
+See https://manpages.ubuntu.com/manpages/deb-version.7.html
 
 Most version changes, except upstream merges, will follow this format:
 
@@ -183,6 +183,15 @@ Simply run `dch` from inside the repository and follow the instructions.
 
 ```bash
 $ git commit -m changelog debian/changelog
+```
+
+
+## Update the maintainer field
+
+
+```bash
+$ update-maintainer
+$ git commit -m "Update maintainer" debian/control
 ```
 
 
