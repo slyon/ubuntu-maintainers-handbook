@@ -177,9 +177,9 @@ receive any review or updates from the Ubuntu security team.
 
 #### Universe
 
-Software from this repository is entirely unsupported by the Ubuntu team.
-Software in universe will not receive any review or updates from the Ubuntu
-security team.
+Software from this repository is mostly unsupported by the Ubuntu Server team.
+Software in Universe may be reviewed or get updates from the Server team if the
+Universe package is directly related to a Server Package in Main.
 
 #### Multiverse
 
