@@ -48,7 +48,7 @@
     ```
 - [ ] **3.** Build new package
     - [ ]  debian/changelog (use ```dch -i```)
-        - [ ]  version: for an SRU, it increments decimal. More [here](CommittingChanges.md#version-string-format).
+        - [ ]  version: for an SRU, it increments decimal. More [here](VersionStrings.md#version-string-format).
         - [ ]  Change UNRELEASED to series name
         - [ ]  Respect the format:
           - [ ]  Check there are ≤ 70 chars per line

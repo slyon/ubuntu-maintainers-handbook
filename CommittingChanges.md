@@ -114,25 +114,11 @@ guidelines to help you when creating your changelog entries.
 
 ### Version string format
 
-See https://manpages.ubuntu.com/manpages/deb-version.7.html
-
-Most version changes, except upstream merges, will follow this format:
-
-| Previous version             | Recommended version                           |
-| ---------------------------- | --------------------------------------------- |
-| 2.0-2                        | 2.0-2ubuntu0.1                                |
-| 2.0-2ubuntu2                 | 2.0-2ubuntu2.1                                |
-| 2.0-2ubuntu2.1               | 2.0-2ubuntu2.2                                |
-| 2.0-2build1                  | 2.0-2ubuntu0.1                                |
-| 2.0                          | 2.0ubuntu0.1                                  |
-| 2.0-2 in two releases        | 2.0-2ubuntu0.11.10.1 and 2.0-2ubuntu0.12.04.1 |
-| 2.0-2ubuntu1 in two releases | 2.0-2ubuntu1.11.10.1 and 2.0-2ubuntu1.12.04.1 |
-
-For example, suppose the current version in Bionic is `3.3.0-1` and the current
-version in Cosmic is `3.3.0-1ubuntu1`. Versions in Bionic should always be
-"lower" than versions in Cosmic so that upgrading to Cosmic uses the Cosmic
-version of the package. In this case, we can use `3.3.0-1ubuntu0.1`.
-
+Selecting the right [version](https://manpages.ubuntu.com/manpages/man7/deb-version.7.html)
+for an upload sounds trivial and it often is. In most cases it is as easy as
+"_increment the right number_", but sadly there are plenty of edge cases that
+one needs to be aware of.
+Please see [Version string format](VersionStrings.md) for details.
 
 ### Reconstruct the changelog with git-ubuntu
 

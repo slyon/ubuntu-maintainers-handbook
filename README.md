@@ -15,6 +15,7 @@ Sections
  * Common Tasks
    - [Making Patch Files](DebianPatch.md)
    - [Committing Your Changes](CommittingChanges.md)
+   - [Choosing a Version](VersionStrings.md)
    - [Package Building](PackageBuilding.md)
    - [Package Tests](PackageTests.md)
    - [Merge Proposals](MergeProposal.md)
