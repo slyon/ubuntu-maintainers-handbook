@@ -9,13 +9,15 @@ Every bug is unique, of course; this is intended to illustrate the mindset and
 steps one shuld follow generally.
 
 
-## Required Reading
+## Required reading
 
-* https://ubuntu.com/blog/git-ubuntu-clone
-* http://dep.debian.net/deps/dep3
-* https://wiki.ubuntu.com/SecurityTeam/UpdatePreparation
-* https://wiki.ubuntu.com/StableReleaseUpdates
+It is strongly recommended that you read the following resources before you
+continue, to make sure you are familiar with the concepts:
 
+* [git-ubuntu-clone](https://ubuntu.com/blog/git-ubuntu-clone)
+* [DEP-3](http://dep.debian.net/deps/dep3)
+* [Version string formats](VersionStrings.md)
+* [Stable Release Updates (SRUs)](https://wiki.ubuntu.com/StableReleaseUpdates)
 
 ## Evaluate the Bug
 
@@ -34,7 +36,8 @@ Mar 5 14:30:05 hostname-here kernel: [ 672.082204] postconf[12975]: segfault at 
 Mar 5 14:30:06 hostname-here kernel: [ 672.303499] postconf[13004]: segfault at 40 ip 000055b29d0f8053 sp 00007fff72f4b740 error 4 in postconf[55b29d0e0000+25000]
 ```
 
-According to the Apport log, the crash is caused by following command line:
+According to the Apport log (which is automatically attached to the Launchpad
+bug by Apport), the crash is caused by following command line:
 
 ```bash
 $ postconf -h queue_directory
@@ -355,7 +358,7 @@ It's also possible to search for commits via Debian's web front-end for git,
 https://salsa.debian.org/ssh-team/openssh/commit/d4181e15b03171d1363cd9d7a50b209697a80b01
 
 Either way, you should also mention the Salsa link in the fixed-up bug report,
-and possibly include it in your fix commit message.
+and you should also include it in your fix commit message.
 
 Since we can't push new versions of packages to previous Ubuntu releases,
 you'll need to backport the fix by copying what Debian did into a new commit
@@ -430,8 +433,7 @@ https://bugs.launchpad.net/ubuntu/+source/postfix/+bug/1753470
 
 Go to the task (row) that starts with "bionic" and assign the task to yourself.
 
-Switch the status to "in progress" using the yellow pencil icons. If you don't
-see yellow pencil icons, you need to get permissions.
+Switch the status to "in progress" using the yellow pencil icons.
 
 
 ### Step 2: Clone the package (if you haven't already)
@@ -750,8 +752,10 @@ anything that depends on it. Any tests that fail will show in red.
 
 It's best to have the package independently verified (preferably by the person
 who reported the bug), but if it sits idle too long (2 days or so), you can
-verify it yourself. Follow the instructions provided by the SRU team, which
-usually means changing the verification-needed tag into verification-done.
+verify it yourself. Follow the
+[instructions provided](https://wiki.ubuntu.com/StableReleaseUpdates#Verification)
+by the SRU team, which usually means changing the "verification-needed" tag
+into "verification-done".
 
 https://people.canonical.com/~ubuntu-archive/pending-sru.html shows which SRUs
 are pending and what their status is. Note that this includes DEP-8 test

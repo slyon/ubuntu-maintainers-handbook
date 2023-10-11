@@ -60,11 +60,12 @@ postfix PASS
 
 ### Open the merge proposal
 
-You'll need to have a branch set up for your package.
+You'll need to have a branch set up for your package. The following steps will
+create the merge proposal:
 
-* Go to your git repos (https://code.launchpad.net/~your-username/+git) and
-  navigate through.
-* Click on your postfix repo.
+* Go to your git repositories (https://code.launchpad.net/~your-username/+git),
+  which shows you a list of all your git repositories, ordered by "last updated"
+* Navigate down the list to the postfix repository and click on it.
 * Under "Branches", click on your branch.
 * Click "Propose for merging".
 
@@ -150,8 +151,9 @@ processes *again* to resolve it.
 
 For SRUs, note that the final testing is performed during SRU verification
 later, so the testing recommended at the stage of preparing an SRU is just
-some very basic smoke testing to find likely problems. Thorough testing can
-be performed later to avoid duplicating effort.
+some very basic [smoke testing](https://en.wikipedia.org/wiki/Smoke_testing_(software))
+to find likely problems. Thorough testing can be performed later to avoid
+duplicating effort.
 
 Once your MP has been reviewed, you can request sponsorship by pointing to
 the git commit at the head:
