@@ -26,7 +26,9 @@ in the "Build binary packages via PPA" section. Once it has built binaries for
 the architecture(s) you intend to test:
 
 ```bash
-$ ppa tests --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 --release bionic
+$ ppa tests \
+ --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 \
+ --release bionic
 ```
 
 This prints to the console a bunch of lines like:
@@ -46,7 +48,7 @@ cut-and-paste into email or chat channels.
 
 Once you've gained permissions to run autopkgtests, you can load each of these
 URLs in your web browser yourself, which will cause the appropriate
-autopkgtests to run. If you omit the `--show-urls` parameter, `ppa tests` will
+autopkgtests to run. If you omit the `--show-url` parameter, `ppa tests` will
 instead display clickable links, making it even more convenient.
 
 After a while, run `ppa tests` again to see how the tests are coming along:
@@ -62,8 +64,7 @@ Results: (from http://autopkgtest.ubuntu.com/results/.../?format=plain)
 
 If anything failed, you can load up the log URLs to see details about why.
 
-
-## Prepare a testing image
+## Testing with VMs and containers
 
 If you use a container or VM, you'll need an image to test from. `autopkgtest`
 will build a suitable image for you. You may want to regenerate the image from
@@ -80,55 +81,99 @@ Important restrictions:
 * `isolation-container`: You must use a VM or container to run these tests.
 * `needs-reboot`: The test reboots the machine, so you must use a VM or container.
 
+### The general process
 
-## 2) Testing with a VM
+No matter whether you are testing in a VM or a container, the command to run
+the tests (and indeed, the general process) is constructed in the same way. 
 
-### Build a VM image
+#### Build the image
 
-Create an image like this (replacing `focal` with your release of choice):
+First, we will build the image we prepared in the previous section.
+
+* To build a VM image:
+
+  ```bash
+  $ autopkgtest-buildvm-ubuntu-cloud -r focal -v \
+   --cloud-image-url http://cloud-images.ubuntu.com/daily/server
+  ```
+
+  (Replace `focal` with your release of choice)
+ 
+  Copy the resulting image (`autopkgtest-focal-amd64.img`) to the
+  `/var/lib/adt-images` directory.
+
+  > **Note**: 
+  > Use `-m` to specify a closer mirror or `-p` to use a local proxy
+  > if it's slow.
+
+* To build a container image:
+
+  ```bash
+  $ autopkgtest-build-lxd images:ubuntu/impish/amd64
+  ```
+
+  You should see an autopkgtest image now when you run `lxc image list`.
+
+#### Constructing the command
+
+For every method, our command will use the same format:
 
 ```bash
-$ autopkgtest-buildvm-ubuntu-cloud -r focal -v \
- --cloud-image-url http://cloud-images.ubuntu.com/daily/server
+autopkgtest <options> <what we want to test> -- <where we want to test> 
 ```
 
-> **Note**: 
-> Use `-m` to specify a closer mirror or `-p` to use a local proxy
-> if it's slow.
+We have already created the image, thing we want to test, so the part of the
+command **before** the `--` will be the same in every example, and uses the
+following options:
 
-Copy the resulting image (`autopkgtest-focal-amd64.img`) to a common directory
-like `/var/lib/adt-images`.
+```bash
+autopkgtest \
+ --apt-upgrade \
+ --shell-fail \
+ --output-dir <package-name>
+ <what we want to test>
+ -- <where we want to test> </image path/image name.img>
+```
 
+For more details on these options you can refer to the
+[autopkgtest manpage](https://manpages.debian.org/testing/autopkgtest/autopkgtest.1.en.html).
 
-### Run the tests (manually)
+Then, for each method, the only part that will change is the "where" we want
+to test, which will be the part **after** the `--`. 
+
+## 2) Testing with a VM
+### Run the tests (manually) against a local directory
 
 Make sure you're one directory up from your package directory and run:
 
 ```bash
-$ autopkgtest -U -s -o dep8-mypackage mypackage/ \
+$ autopkgtest \
+ --apt-upgrade \
+ --shell-fail \
+ --output-dir dep8-mypackage \
+ mypackage/ \
  -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
 ```
 
-Where:
-
-* `-U`: Run `apt-get upgrade`.
-* `-s`: Stop and give you a shell if there is a failure. Good for debugging.
-* `-o dep8-mypackage`: Put your package name in here. Writes output report to
-  the directory `dep8-mypackage`.
-* `mypackage/`: Put your package name here. The trailing slash tells it to
+> Note:
+> * `mypackage/`: Put your package name here. The trailing slash tells it to
   interpret this as a directory rather than a package name.
-* Everything after the `--` tells it how to run the tests.
-* `qemu`: shorthand for `autopkgtest-virt-qemu`.
+> * `qemu`: Is shorthand for `autopkgtest-virt-qemu`.
 
 
-### Run the tests (using the PPA)
+### Run the tests (against the PPA)
 
 Make sure you're one directory up from your package directory and run:
 
 ```bash
-$ autopkgtest -U -s -o dep8-mypackage-ppa \
+$ autopkgtest \
+ --apt-upgrade \
+ --shell-fail
+ --output-dir dep8-mypackage-ppa \
  --setup-commands="sudo add-apt-repository -y -u -s \
- ppa:mylaunchpaduser focal-mypackage-fixed-something-1234567" -B mypackage \
+ ppa:mylaunchpaduser focal-mypackage-fixed-something-1234567" \
+ --no-built-binaries \
+ mypackage \
  -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
 ```
 
@@ -137,7 +182,6 @@ Where (in `setup-commands`):
 * `-y`: Assume "yes" for all questions.
 * `-u`: Run `apt-update`.
 * `-s`: Add the source line as well.
-* `-B`: Don't build.
 
 > **Note**: 
 > In this case, the package name **doesn't** have a trailing slash because we
@@ -146,24 +190,21 @@ Where (in `setup-commands`):
 
 ## 3) Testing with a container
 
-### Build a container image
+### Run the tests (against the PPA)
 
 ```bash
-$ autopkgtest-build-lxd images:ubuntu/impish/amd64
-```
-
-You should see an autopkgtest image now when you run `lxc image list`.
-
-### Run the tests (using the PPA)
-
-The command only differs from the VM method after the `--` part. For example:
-
-```bash
-$ autopkgtest -U -s -o dep8-mypackage-ppa \
+$ autopkgtest \
+ --apt-upgrade \
+ --shell-fail \
+ --output-dir dep8-mypackage-ppa \
  --setup-commands="sudo add-apt-repository -y -u -s \
- ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" -B mypackage \
+ ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" \
+ --no-built-binaries \
+ mypackage \
  -- lxd autopkgtest/ubuntu/focal/amd64
 ```
+
+The `setup-commands` options are as described in the previous section.
 
 ## 4) Testing in the cloud with Canonistack
 
@@ -252,8 +293,13 @@ Canonistack does not have native armhf nodes.
 Due to that the autopkgtests on that architecture actually run in armhf containers on arm64 hosts.
 To recreate that environment you'd first need to get a canonistack arm64 instance and there combine all of the above like:
 
-```
-$ autopkgtest --no-built-binaries --apt-upgrade --setup-commands setup-testbed --shell-fail <mypackage>.dsc -- lxd ubuntu-daily:mantic/armhf
+```bash
+$ autopkgtest \
+ --no-built-binaries \
+ --apt-upgrade \
+ --setup-commands setup-testbed \
+ --shell-fail <mypackage>.dsc \
+ -- lxd ubuntu-daily:mantic/armhf
 ```
 
 These days normal images mostly work, but for completeness (and because you read this being cursed by tracking a special case) there is also a form which creates an image adapted to the use for autopkgtest.
@@ -398,7 +444,7 @@ $ autopkgtest \
  -- qemu ~/work/autopkgtest-impish-amd64.img
 ```
 
-## Save the Results
+## Save the results
 
 You'll see the tests run:
 
