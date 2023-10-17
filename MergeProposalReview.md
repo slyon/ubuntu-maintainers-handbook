@@ -1,65 +1,68 @@
-Merge Proposal Reviewing
-========================
+# Merge Proposal (MP) reviewing
 
- check formal content (changelog, patch naming, version numbers, patch headers, ...)
+Check formal content:
 
-Initial Review
---------------
+* changelog
+* patch naming
+* version numbers
+* patch headers
+* etc
 
-### Check the changelog header:
+## Initial review
 
- * Follows dep-3 http://dep.debian.net/deps/dep3/
- * Contains bug pointer (LP: #12345678)
- * Proper version change
- * Proper distribution
- * Lists all files changed
- * Proper author & email
+### Check the changelog header
 
-### Check the commits:
+* [Follows DEP-3](http://dep.debian.net/deps/dep3/)
+* Contains a bug pointer (LP: #12345678)
+* Proper version change
+* Proper distribution
+* Lists all files changed
+* Proper author and email
 
- * Changes are logically split into separate commits
- * changelog is the last commit
+### Check the commits
 
-### Check the files:
+* Changes are logically split into separate commits
+* changelog is the last commit
 
- * Only files inside the debian directory have been modified
+### Check the files
 
-Review Template
----------------
+* Only files inside the debian directory have been modified
 
-The following template may come useful when submitting reviews:
+## Review template
+
+The following template may be useful when submitting reviews:
 
 ```
 * Changelog:
-  - [ ] changelog entry correct version and targeted codename
-  - [ ] correct formatting of changelog's items
-  - [ ] bug references correct
-  - [ ] old content and logical tag match as expected (Package Merge)
+  - [ ] Changelog entry has correct version and targeted codename
+  - [ ] Correct formatting of changelog items
+  - [ ] Bug references correct
+  - [ ] Old content and logical tag match as expected (Package Merge)
 
-* Package Merge - Indirect changes:
-  - [ ] no upstream changes that need adaptation due to Ubuntu's design
-  - [ ] no further upstream version/changes to consider
-  - [ ] debian changes are compatible with the Ubuntu implementation
+* Package Merge - indirect changes:
+  - [ ] No upstream changes that need adaptating due to Ubuntu's design
+  - [ ] No further upstream version/changes to consider
+  - [ ] Debian changes are compatible with the Ubuntu implementation
   - [ ] update-maintainer has been run
 
-* Package Merge - Old Delta:
-  - [ ] dropped changes are ok to be dropped
-  - [ ] nothing else to drop
-  - [ ] changes forwarded upstream/debian (if appropriate)
+* Package Merge - old delta:
+  - [ ] Dropped changes are ok to be dropped
+  - [ ] Nothing else to drop
+  - [ ] Changes forwarded upstream/Debian (if appropriate)
 
-* New Delta:
-  - [ ] no new patches added
-  - [ ] patches match what was proposed/committed upstream
-  - [ ] patches correctly included in debian/patches/series
-  - [ ] patches have correct DEP3 metadata
+* New delta:
+  - [ ] No new patches added
+  - [ ] Patches match those proposed/committed upstream
+  - [ ] Patches correctly included in Debian/patches/series
+  - [ ] Patches have correct DEP-3 metadata
 
-* Git/Maintenance:
-  - [ ] testcases added or not strictly required for this
-  - [ ] commits are properly split (more important on -dev than on SRUs)
+* Git/maintenance:
+  - [ ] Testcases added or not strictly required for this
+  - [ ] Commits are properly split (more important on -dev than on SRUs)
 
-* Build/Test:
-  - [ ] build is ok
-  - [ ] verified PPA package installs/uninstalls
+* Build/test:
+  - [ ] Build is OK
+  - [ ] Verified PPA package installs/uninstalls
   - [ ] autopkgtest against the PPA package passes
   - [ ] sanity checks test fine
 ```
