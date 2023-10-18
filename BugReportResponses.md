@@ -42,7 +42,7 @@ Here are some ideas for standard responses you can give for common themes in bug
 
 Thank you for taking the time to report bugs and help make Ubuntu better.
 
-This looks like a local configuration issue rather than a bug in the software itself. Please check your configuration to make sure it's correct. If you need help configuring, you can get community support in the Ubuntu channels on freenode.net, or in http://www.ubuntu.com/support/community
+This looks like a local configuration issue rather than a bug in the software itself. Please check your configuration to make sure it's correct. If you need help configuring, you can get community support in the Ubuntu channels on libera.chat, or in http://www.ubuntu.com/support/community
 
 I'm marking this "Invalid" because it doesn't appear to be a bug, but if I'm wrong, please change it back to "New" and add some more info to point me in the right direction. Use this link as a guide: http://www.chiark.greenend.org.uk/~sgtatham/bugs.html
 
@@ -84,7 +84,7 @@ If it detects file system corruption, the safest option is usually to back up wh
 
 You can also try "sudo apt-get clean" and then try reinstalling the package.
 
-If you need more help, you can get community support in the Ubuntu channels on freenode.net, or in http://www.ubuntu.com/support/community
+If you need more help, you can get community support in the Ubuntu channels on libera.chat, or in http://www.ubuntu.com/support/community
 
 I'm marking this "Invalid" because it doesn't appear to be a bug, but if I'm wrong, please change it back to "New" and add some more info to point me in the right direction. Use this link as a guide: http://www.chiark.greenend.org.uk/~sgtatham/bugs.html
 

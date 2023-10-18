@@ -671,7 +671,7 @@ After you or your sponsor have uploaded your package:
 * The upload will appear in the "unapproved queue", for example 
   `https://launchpad.net/ubuntu/focal/+queue?queue_state=1`. It may take a
   week or two before it gets processed.
-* If you find a problem while it's still unapproved, ask in the Freenode
+* If you find a problem while it's still unapproved, ask in the Libera Chat
   `#ubuntu-release` channel for the package to be rejected from the queue.
   This is a trivial task for archive admins. If rejected at this stage, then
   the same version number can be re-used in a subsequent upload.
@@ -726,7 +726,7 @@ builds completed (green checkmarks).
 
 ### IRC monitoring
 
-Join `#ubuntu-ci-eng` on the Freenode IRC server to get pinged with your name
+Join `#ubuntu-ci-eng` on the Libera Chat IRC server to get pinged with your name
 when CI events occur.
 
 
