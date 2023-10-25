@@ -2,16 +2,17 @@
 
 Ubuntu encourages contributions from any person in the wider community.
 However, direct uploading to the Ubuntu archives is restricted, for obvious
-reasons. These general contributions need to be reviewed and uploaded by a
-**sponsor**.
+reasons. General contributions for any particular package need to be reviewed
+and uploaded by a **sponsor**, which is a person who has upload rights for that
+package.
 
 Contributors with proven packaging skills can get upload rights for:
 * [certain sets of packages](MembershipInPackageSet.md),
 * [all universe packages](MembershipInMOTU.md), or
 * [the full archive](MembershipInCoreDev.md).
 
-Canonical employees are treated no different from general community members
-and must follow the same processes for gaining upload rights. These people are
+Canonical employees are treated no differently than general community members
+and must follow the same processes for gaining upload rights. Sponsors are
 also able to review and upload contributions from others as well.
 
 This page provides guidance on how to use the sponsorship process to get your
@@ -43,7 +44,7 @@ as well.
 A second, more traditional approach is to
 [file a bug report in Launchpad](https://bugs.launchpad.net/ubuntu/+filebug),
 attach your changes as a
-[debdiff](https://ubuntu-packaging-guide.readthedocs.io/en/latest/ubuntu-packaging-guide/traditional-packaging.html#creating-a-debdiff),
+[debdiff](https://manpages.ubuntu.com/manpages/en/man1/debdiff.1.html),
 and then subscribe `ubuntu-sponsors` (or `ubuntu-security-sponsors` for
 security issues). This approach is generally used only if a package is not in
 `git-ubuntu` or if an MP can't be generated for some reason.
@@ -55,9 +56,10 @@ to find sponsors outside your usual circle.
 
 Canonical employees will typically have ready sponsors from their team mates.
 However, sponsors can also be found elsewhere in Canonical or in the larger
-community. Having a diversity of sponsors can be useful when applying for MOTU
-and core-dev, since it will demonstrate breadth of your experience and
-trustworthiness.
+community. Having a diversity of sponsors can be useful when
+[applying](Reference/PathToUploadRights.md) for [MOTU](MembershipInMOTU.md)
+and [core-dev](https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInCoreDev.md),
+since it will demonstrate breadth of your experience and trustworthiness.
 
 
 ## Tracking for endorsements

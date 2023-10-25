@@ -1,37 +1,35 @@
 # Syncs
 
-When we are doing a [merge](PackageMerging.md#merging), immersed in detecting
-logical changes and doing commit splits, we may suddenly realise that there are
-no Ubuntu changes left because Debian or upstream has incorporated them (the
-logical changes have become redundant). Sometimes we recognise this because
-everything becomes an [empty commit](PackageMerging.md#empty-commits),
-or simply because we have been very careful to check the upstream or Debian
-changelog before starting the merge task.
+If an Ubuntu package is the same as the Debian version, we have an automated
+mechanism that synchronises the Debian version to our Ubuntu series. 
 
-When this happens, the merge task evolves into a sync task.
+A **delta** represents the difference between the Ubuntu and Debian versions of
+a package. Typically, when we make changes to a package, we
+[merge](PackageMerging.md#merging) our delta onto the upstream version. Debian
+packages can only be synchronised if there is no delta.
 
+However, there can be occasions where Debian or upstream incorporate our
+logical changes before we merge them, meaning that there is essentially no
+difference between the Ubuntu and Debian versions. If we were to proceed with
+our merge, we would be merging an
+[empty commit](PackageMerging.md#empty-commits) (i.e., adding a commit where
+nothing has changed).
 
-## Why is a sync better?
+In this situation, it is better to sync the new version of the Debian
+package back to Ubuntu than to manually perform an empty merge.
 
-In Ubuntu, we have an automated mechanism that synchronises new versions of a
-Debian package to our Ubuntu series (without an Ubuntu delta on top of a
-Debian source package).
-Such is the case that, if we find a package can become a sync again, it is
-better to ask for a sync than to deal with manual empty merges.
+## Asking for a sync
 
 The automatic syncing of packages from Debian is active for only some of the
 Ubuntu release cycle - see
 [the Debian Import Freeze](https://wiki.ubuntu.com/DebianImportFreeze)
-for more information.
+page for more information.
 
-
-## Asking for a sync
-
-Let us consider a case where we have an empty Ubuntu delta before
+Let us consider a test case where we have an empty Ubuntu delta before
 Debian Import Freeze. You can check the
 [Release Schedule](https://wiki.ubuntu.com/ReleaseSchedule)
-for current releases in development. The Debian package is on sid -testing-,
-so doing an
+for current releases in development. The Debian package is on
+[`testing`](https://www.debian.org/releases/), so doing an
 [explicit sync](https://wiki.ubuntu.com/SyncRequestProcess#Content_of_a_sync_request)
 is unnecessary, but we have to fill the MP for the
 unfinished-and-not-necessary-merge in the following way:
