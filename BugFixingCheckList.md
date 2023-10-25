@@ -1,7 +1,6 @@
-###  Bug Fix Check List
+# Bug fixing checklist
 
-   
-- [ ] **1.**  Get code and tarball. For the tarball, you have to be inside repo folder. You must checkout to the version you need before get the tarball.
+- [ ] **1.** Get code and tarball. For the tarball, you have to be inside repo folder. You must checkout to the version you need before get the tarball.
   - [ ]  ```git-ubuntu clone <source_package_name> [destination_folder]```
     - [ ]  tarball: ```git-ubuntu export-orig```
   - [ ]  If not there, from ubuntu-dev-tools package:
