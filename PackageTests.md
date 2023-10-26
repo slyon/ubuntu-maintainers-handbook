@@ -27,8 +27,8 @@ the architecture(s) you intend to test:
 
 ```bash
 $ ppa tests \
- --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 \
- --release bionic
+  --show-url ppa:kstenerud/postfix-postconf-segfault-1753470 \
+  --release bionic
 ```
 
 This prints to the console a bunch of lines like:
@@ -127,12 +127,12 @@ command **before** the `--` will be the same in every example, and uses the
 following options:
 
 ```bash
-autopkgtest \
- --apt-upgrade \
- --shell-fail \
- --output-dir <package-name>
- <what we want to test>
- -- <where we want to test> </image path/image name.img>
+$ autopkgtest \
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir <package-name>
+    <what we want to test>
+  -- <where we want to test> </image path/image name.img>
 ```
 
 For more details on these options you can refer to the
@@ -148,11 +148,11 @@ Make sure you're one directory up from your package directory and run:
 
 ```bash
 $ autopkgtest \
- --apt-upgrade \
- --shell-fail \
- --output-dir dep8-mypackage \
- mypackage/ \
- -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir dep8-mypackage \
+    mypackage/ \
+  -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
 ```
 
 > Note:
@@ -167,21 +167,22 @@ Make sure you're one directory up from your package directory and run:
 
 ```bash
 $ autopkgtest \
- --apt-upgrade \
- --shell-fail
- --output-dir dep8-mypackage-ppa \
- --setup-commands="sudo add-apt-repository -y -u -s \
- ppa:mylaunchpaduser focal-mypackage-fixed-something-1234567" \
- --no-built-binaries \
- mypackage \
- -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
+  --apt-upgrade \
+  --shell-fail
+  --output-dir dep8-mypackage-ppa \
+  --setup-commands="sudo add-apt-repository \
+    --yes \
+    --update \
+    --enable-source \
+    ppa:mylaunchpaduser focal-mypackage-fixed-something-1234567" \
+  --no-built-binaries \
+    mypackage \
+  -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
 ```
 
-Where (in `setup-commands`):
-
-* `-y`: Assume "yes" for all questions.
-* `-u`: Run `apt-update`.
-* `-s`: Add the source line as well.
+Note that in the `add-apt-repository` command, the `--update` flag became part
+of the default after 20.04 LTS. So if you are running a test on jammy or later
+you do not need to include that flag.
 
 > **Note**: 
 > In this case, the package name **doesn't** have a trailing slash because we
@@ -259,27 +260,27 @@ is quite similar to the other invocations. Just two things change compared to
 ```bash
 # General pattern
 $ autopkgtest \
- --no-built-binaries \
- --apt-upgrade \
- --setup-commands setup-testbed \
- --shell-fail <mypackage>.dsc \
- -- ssh -s nova -- \
- --flavor m1.small \
- --image <image> \
- --keyname <yourkeyname>
+  --no-built-binaries \
+  --apt-upgrade \
+  --setup-commands setup-testbed \
+  --shell-fail <mypackage>.dsc \
+  -- ssh -s nova -- \
+  --flavor m1.small \
+  --image <image> \
+  --keyname <yourkeyname>
 ```
 
 ```bash
 # One example
 $ autopkgtest \
- --no-built-binaries \
- --apt-upgrade \
- --setup-commands setup-testbed \
- --shell-fail systemd_247.3-1ubuntu2.dsc \
- -- ssh -s nova -- \
- --flavor m1.small \
- --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
- --keyname paelzer_canonistack-bos01
+  --no-built-binaries \
+  --apt-upgrade \
+  --setup-commands setup-testbed \
+  --shell-fail systemd_247.3-1ubuntu2.dsc \
+  -- ssh -s nova -- \
+  --flavor m1.small \
+  --image ubuntu/ubuntu-hirsute-daily-arm64-server-20201125-disk1.img \
+  --keyname paelzer_canonistack-bos01
 ```
 
 You can use all the usual OpenStack terms, e.g. other flavors, sizing the VM
@@ -289,22 +290,25 @@ architectures.
 
 ### Armhf is special
 
-Canonistack does not have native armhf nodes.
-Due to that the autopkgtests on that architecture actually run in armhf containers on arm64 hosts.
-To recreate that environment you'd first need to get a canonistack arm64 instance and there combine all of the above like:
+Canonistack does not have native armhf nodes. Because of that the autopkgtests
+on that architecture actually run in armhf containers on arm64 hosts.
+To recreate that environment you'll first need to get a Canonistack arm64
+instance and there combine all of the above like:
 
 ```bash
 $ autopkgtest \
- --no-built-binaries \
- --apt-upgrade \
- --setup-commands setup-testbed \
- --shell-fail <mypackage>.dsc \
- -- lxd ubuntu-daily:mantic/armhf
+  --no-built-binaries \
+  --apt-upgrade \
+  --setup-commands setup-testbed \
+  --shell-fail <mypackage>.dsc \
+  -- lxd ubuntu-daily:mantic/armhf
 ```
 
-These days normal images mostly work, but for completeness (and because you read this being cursed by tracking a special case) there is also a form which creates an image adapted to the use for autopkgtest.
+These days normal images mostly work, but for completeness (and because you
+read this being cursed by tracking a special case) there is also a form which
+creates an image adapted to the use for autopkgtest.
 
-```
+```bash
 # prep armhf container image for autopkgtest
 $ autopkgtest-build-lxd ubuntu-daily:mantic/armhf
 
