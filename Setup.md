@@ -36,11 +36,11 @@ sudo apt install -y \
     qemu-system \
     quilt \
     sbuild \
-    snapcraft \
     ubuntu-dev-tools \
     uvtool \
     virtinst && \
 sudo snap install lxd && \
+sudo snap install snapcraft && \
 sudo snap install --classic ustriage && \
 sudo snap install --classic --edge git-ubuntu && \
 sudo snap install --classic --beta multipass
