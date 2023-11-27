@@ -172,6 +172,13 @@ Description: "tracking bug"
 result: https://bugs.launchpad.net/ubuntu/+source/at/+bug/1802914
 ```
 
+Set the bug status to "in-progress" and assign it to yourself. If you have the permissions to do so, set the importance to "Wishlist". Otherwise, there is no need to set this field.
+
+Go to the m-o-m summary page (for example https://merges.ubuntu.com/universe.html) and leave a comment linking to the bug. This way, others know that there is already a bug filed for that merge:
+* Click in the Comment column on the invisible text entry field
+* Leave a comment like "bug #123456" and press Enter
+* The page will update and link to your bug
+  
 > **Save the bug report number, because you'll be using it throughout the merge
 > process.**
 
