@@ -1146,7 +1146,7 @@ Next step: [Update the merge proposal](#update-the-merge-proposal)
 We need to use a
 [python script](https://git.launchpad.net/~racb/usd-importer/plain/wip/emptydirfixup.py?h=emptydirfixup)
 written by Robie Basak (@racb). Why is it a problem that we get empty
-diresctoriess?
+directories?
 
 Git's frontend doesn't let you add an empty directory. Usually the workaround
 is to create any necessary empty directory at build time, or failing that, to
