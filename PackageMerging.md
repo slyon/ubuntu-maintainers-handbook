@@ -928,6 +928,7 @@ $ echo "echo abc >test.txt" | at now + 1 minute && sleep 1m && cat test.txt && r
 
 * Try running various basic commands.
 * Try running regression tests: https://git.launchpad.net/qa-regression-testing
+* For packages that Build-Depend on itself (openjdk, jruby, kotlin, etc.) try to build it using the new version.
 
 ## Submit Merge Proposal (MP)
 
