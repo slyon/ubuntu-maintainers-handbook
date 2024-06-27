@@ -198,7 +198,7 @@ to want to clone as the same name).
 From within the git source tree:
 
 ```bash
-git ubuntu merge start ubuntu/devel
+git ubuntu merge start pkg/ubuntu/devel
 ```
 
 This will generate the following tags for you:
@@ -682,7 +682,7 @@ described below.
 ### Finish the merge
 
 ```bash
-$ git ubuntu merge finish ubuntu/devel
+$ git ubuntu merge finish pkg/ubuntu/devel
 ```
 
 If this fails, [do it manually](#finish-the-merge-manually).
