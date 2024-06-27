@@ -752,7 +752,7 @@ then the diff should be empty, except:
 1. `rmadison -u debian <package_name>`
 1. `git ubuntu clone <package_name> <package_name>-gu`
 1. `cd <package_name>-gu`
-1. `git ubuntu merge start ubuntu/devel`
+1. `git ubuntu merge start pkg/ubuntu/devel`
 1. `git checkout -b
 merge-<version_of_debian_unstable>-<current_ubuntu_devel_name>`
 1. `git log --stat old/debian..`
@@ -766,7 +766,7 @@ straight away
 1. `git rebase -i --onto new/debian old/debian`
 1. `quilt push -a --fuzz=0`
 1. `quilt pop -a`
-1. `git ubuntu merge finish ubuntu/devel`
+1. `git ubuntu merge finish pkg/ubuntu/devel`
 
 ## Upload a PPA
 
