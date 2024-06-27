@@ -1234,7 +1234,7 @@ git ubuntu merge -f start
 rm .git/hooks/pre-commit
 
 # finish the merge
-git ubuntu merge finish pkg/ubuntu/devel debian/sid
+git ubuntu merge finish pkg/ubuntu/devel
 
 #... Create MP as usual, get reviewed/approved, etc. ...
 
