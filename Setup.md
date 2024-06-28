@@ -301,6 +301,16 @@ in a build. They can be updated individually using sbuild-update. The common
 $ sudo sbuild-update -udcar jammy-proposed-amd64
 ```
 
+Furthermore sometimes a schroot for Debian is needed to contribute there
+or to compare build results. Those can be created with sbuild-createchroot
+that comes with the sbuild package. We usually add a few packages
+that help us later and refer to where to create and where to get the content.
+Here an example:
+
+```bash
+$ sudo sbuild-createchroot --include=eatmydata,ccache,gnupg unstable /srv/chroot/unstable-amd64-sbuild http://deb.debian.org/debian
+```
+
 
 ### LXD
 
