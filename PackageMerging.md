@@ -155,8 +155,19 @@ below.
 
 ### Make a bug report for the merge
 
-Search for an existing merge request bug entry in Launchpad, and if you don't
-find one, go to the package's Launchpad page: 
+Most of the regular server team merges are pre-planned and therefore likely
+exist already at our [merges schedule](http://pinot.endarchy.org:4200/merges-schedule) and as bugs.
+
+But we also sometimes pick up other merges from [merge-o-matic](https://merges.ubuntu.com/main.html),
+our weekly [Merge Opportunities Report](https://lists.ubuntu.com/archives/ubuntu-server/2024-June/010077.html)
+or just by getting aware due to any other reason.
+
+In the case of not yet having an obvious pre-create bug search if there is
+existing merge request bug entry in Launchpad.
+If you don't find one, create one to avoid duplicate efforts and to allow
+coordination.
+
+To do so go to the package's Launchpad page:
 
 https://bugs.launchpad.net/ubuntu/+source/[package]
 
@@ -172,9 +183,13 @@ Description: "tracking bug"
 result: https://bugs.launchpad.net/ubuntu/+source/at/+bug/1802914
 ```
 
-Set the bug status to "in-progress" and assign it to yourself. If you have the permissions to do so, set the importance to "Wishlist". Otherwise, there is no need to set this field.
+Set the bug status to "in-progress" and assign it to yourself.
 
-Go to the m-o-m summary page (for example https://merges.ubuntu.com/universe.html) and leave a comment linking to the bug. This way, others know that there is already a bug filed for that merge:
+To let people only using m-o-m know go to the summary page
+(for example https://merges.ubuntu.com/universe.html) and if the package is
+listed there leave a comment linking to the bug.
+This way, others not studying the LP bugs will know more easily that there is
+already a bug filed for that merge. To do so go there and:
 * Click in the Comment column on the invisible text entry field
 * Leave a comment like "bug #123456" and press Enter
 * The page will update and link to your bug
