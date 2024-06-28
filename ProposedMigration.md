@@ -684,7 +684,7 @@ the test URL. If that passes, but the package still does not migrate, then look
 in the test log for all packages that were pulled from -proposed and include
 those as triggers.
 [Excuses Kicker](https://git.launchpad.net/~bryce/+git/excuses-kicker) and
-[retry-autopkgtest-regressions](https://bazaar.launchpad.net/~ubuntu-archive/ubuntu-archive-tools/trunk/view/head:/retry-autopkgtest-regressions)
+[retry-autopkgtest-regressions](https://git.launchpad.net/ubuntu-archive-tools/tree/retry-autopkgtest-regressions)
 are handy tools for generating these URLs.
 
 As with rebuilds, these re-triggers also require Core Dev permissions, so if
