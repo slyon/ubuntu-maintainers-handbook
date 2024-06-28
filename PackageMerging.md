@@ -197,7 +197,13 @@ already a bug filed for that merge. To do so go there and:
 > **Save the bug report number, because you'll be using it throughout the merge
 > process.**
 
-### Clone the package repository
+### Get the package repository
+
+If not yet present, cloning the repository is the start of all further
+interaction. If instead the repository is already present, update it to
+ensure to have the newest content before any further action.
+
+#### Clone the package repository
 
 ```bash
 git ubuntu clone <package> [<package>-gu]
@@ -213,6 +219,16 @@ It's a good idea to append some `git-ubuntu` specific label (like `-gu`) to
 distinguish it from clones of Debian or upstream git repositories (which tend
 to want to clone as the same name).
 
+#### Update the package repository
+
+Since this is just git, the best way to update the git ubuntu based content
+as well as any other potentially added further remotes is to just update
+them all before going into the merge process.
+
+```bash
+$ git fetch --all
+```
+
 ## The merge process
 
 ### Start a Git Ubuntu merge
@@ -220,7 +236,7 @@ to want to clone as the same name).
 From within the git source tree:
 
 ```bash
-git ubuntu merge start ubuntu/devel
+git ubuntu merge start pkg/ubuntu/devel
 ```
 
 This will generate the following tags for you:
@@ -704,7 +720,7 @@ described below.
 ### Finish the merge
 
 ```bash
-$ git ubuntu merge finish ubuntu/devel
+$ git ubuntu merge finish pkg/ubuntu/devel
 ```
 
 If this fails, [do it manually](#finish-the-merge-manually).
@@ -796,7 +812,7 @@ In the original shell you should see something like
 1. `rmadison -u debian <package_name>`
 1. `git ubuntu clone <package_name> <package_name>-gu`
 1. `cd <package_name>-gu`
-1. `git ubuntu merge start ubuntu/devel`
+1. `git ubuntu merge start pkg/ubuntu/devel`
 1. `git checkout -b
 merge-<version_of_debian_unstable>-<current_ubuntu_devel_name>`
 1. `git log --stat old/debian..`
@@ -810,7 +826,7 @@ straight away
 1. `git rebase -i --onto new/debian old/debian`
 1. `quilt push -a --fuzz=0`
 1. `quilt pop -a`
-1. `git ubuntu merge finish ubuntu/devel`
+1. `git ubuntu merge finish pkg/ubuntu/devel`
 
 ## Upload a PPA
 
@@ -1278,7 +1294,7 @@ git ubuntu merge -f start
 rm .git/hooks/pre-commit
 
 # finish the merge
-git ubuntu merge finish pkg/ubuntu/devel debian/sid
+git ubuntu merge finish pkg/ubuntu/devel
 
 #... Create MP as usual, get reviewed/approved, etc. ...
 
