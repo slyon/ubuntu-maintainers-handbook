@@ -175,7 +175,13 @@ result: https://bugs.launchpad.net/ubuntu/+source/at/+bug/1802914
 > **Save the bug report number, because you'll be using it throughout the merge
 > process.**
 
-### Clone the package repository
+### Get the package repository
+
+If not yet present, cloning the repository is the start of all further
+interaction. If instead the repository is already present, update it to
+ensure to have the newest content before any further action.
+
+#### Clone the package repository
 
 ```bash
 git ubuntu clone <package> [<package>-gu]
@@ -190,6 +196,16 @@ $ git ubuntu clone at at-gu
 It's a good idea to append some `git-ubuntu` specific label (like `-gu`) to
 distinguish it from clones of Debian or upstream git repositories (which tend
 to want to clone as the same name).
+
+#### Update the package repository
+
+Since this is just git, the best way to update the git ubuntu based content
+as well as any other potentially added further remotes is to just update
+them all before going into the merge process.
+
+```bash
+$ git fetch --all
+```
 
 ## The merge process
 
