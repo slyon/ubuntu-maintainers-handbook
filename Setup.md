@@ -276,6 +276,31 @@ DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
 > **Note**: 
 > For more info, see the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
 
+### Getting Schroots
+
+Having SBuild set up is only half of the solution, schroot environments for
+the respective builds are also needed.
+As outlined in the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
+one can use e.g. `mk-sbuild noble --arch=amd64` for that.
+But many use sbuild-launchpad-chroot instead which includes two sbuild hooks
+and a command line tool to setup and maintain build chroots that are as close
+as possible to a standard Launchpad sbuild chroot.
+
+```bash
+$ sudo sbuild-launchpad-chroot create -n noble-amd64 -s noble -a amd64
+```
+
+This will create multiple schroots which allow to easily select building against
+different configurations like -proposed or backports.
+
+In general schroots can get stale and there are more and more updates needed
+in a build. They can be updated individually using sbuild-update. The common
+-udcar options map to apt update, dist-upgrade, clean and autoremove.
+
+```bash
+$ sudo sbuild-update -udcar jammy-proposed-amd64
+```
+
 
 ### LXD
 
