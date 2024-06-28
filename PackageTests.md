@@ -277,7 +277,7 @@ Make sure you're one directory up from your package directory and run:
 ```bash
 $ autopkgtest \
   --apt-upgrade \
-  --shell-fail
+  --shell-fail \
   --output-dir dep8-mypackage-ppa \
   --setup-commands="sudo add-apt-repository \
     --yes \
