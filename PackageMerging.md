@@ -768,6 +768,28 @@ then the diff should be empty, except:
    For the purposes of this workflow, these are not considered part of our
    “logical delta”, and instead are re-added at the end.
 
+#### Tip
+
+You can use `execsnoop-bpfcc` from the package `bpfcc` to find what debhelper scripts were called for a certain package. This is helpful for debugging what scripts were called, and what parameters were passed to them.
+
+For example,
+
+    $ sudo apt install bpfcc-tools
+    $ sudo execsnoop-bpfcc -n multipath
+
+Now in another shell run
+
+    $ sudo apt install --reinstall multipath-tools
+
+In the original shell you should see something like
+
+    PCOMM            PID     PPID    RET ARGS
+    multipath-tools  13939   13931     0 /var/lib/dpkg/info/multipath-tools.prerm upgrade 0.9.4-5ubuntu3
+    multipath-tools  13951   13931     0 /var/lib/dpkg/info/multipath-tools.postrm upgrade 0.9.4-5ubuntu3
+    multipath-tools  13959   13956     0 /var/lib/dpkg/info/multipath-tools.postinst configure 0.9.4-5ubuntu3
+    multipathd       14009   1         0 /sbin/multipathd -d -s
+
+
 ## A brief summary of this phase (cheat sheet)
 
 1. `rmadison <package_name>`
