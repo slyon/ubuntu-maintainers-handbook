@@ -450,7 +450,7 @@ previously but not sync-blocklisted and thus reappeared.
 
 If the package should not be synced into the archive, on `#ubuntu-release` ping
 "ubuntu-archive" with a request to remove the packages' binaries and add them to
-`sync-blacklist.txt`.
+[sync-blocklist.txt](https://ubuntu-archive-team.ubuntu.com/sync-blocklist.txt).
 
 Otherwise, there are several things worth checking. Note that these links are
 for Jammy; modify them for the current development release:
