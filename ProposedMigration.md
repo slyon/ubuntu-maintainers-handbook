@@ -805,3 +805,58 @@ this can be worked around by adding the missing dependency to
 may be possible to make the test case use a local file, or to load from the
 proxy network.
 
+
+## Triggering tests from the CLI ##
+
+There will be times when you may need to (re-)trigger several tests at once. In
+such situations, opening the autopkgtest trigger URLs in a browser becomes a
+repetitive, time-consuming mechanical task. We could still use the CLI to feed
+the URLs to a browser, but this would still be error prone and time consuming
+depending on the number of trigger URLs we are dealing with.
+
+Instead of using a browser to trigger our tests, we could perform the HTTP
+requests through the CLI. However, since the autopkgtest requires
+authentication, we need to extract our credentials from a browser.
+
+**Warning:** The steps below are to extract your credentials for the
+autopkgtest infrastructure from the browser. Make sure to secure those
+credentials and not to share them.
+
+The credentials are available in a cookie for autopkgtest.ubuntu.com. There are
+two values we want to extract there: the `session` and the `SRVNAME`.
+
+There are different ways to extract those credentials from the browser, here,
+we show how to do it for Firefox using the Firefox Developer Tools menu.
+
+In Firefox, browse to
+[https://autopkgtest.ubuntu.com/](https://autopkgtest.ubuntu.com/) and open the
+Developer Tools (by pressing `F12` or `ctrl`+`shift`+`C`). In the `Storage`
+tab, expand the `Cookies` menu on the left panel and look for an
+`autopkgtest.ubuntu.com` entry. There you should find the values for the
+`session` and `SRVNAME` entries mentioned above.
+
+Save those values in a local file (e.g., `~/.cache/autopkgtest.cookie`) with
+the following contents (make sure the file has proper permissions so other
+users cannot read it, e.g., `0600`, **it will carry your autopkgtest
+infrastructure credentials**):
+
+```
+autopkgtest.ubuntu.com	TRUE	/	TRUE	0	session	YOUR_COOKIE_SESSION_VALUE_HERE
+autopkgtest.ubuntu.com	TRUE	/	TRUE	0	SRVNAME	YOUR_COOKIE_SRVNAME_VALUE_HERE
+```
+
+Note that the delimiters used above are tabs (`\t`) and not spaces. You can use
+the following commands to ensure your cookie file has the proper format:
+
+```
+$ printf "autopkgtest.ubuntu.com\\tTRUE\\t/\\tTRUE\\t0\\tsession\\tYOUR_COOKIE_SESSION_VALUE_HERE\\n" > ~/.cache/autopkgtest.cookie
+$ printf "autopkgtest.ubuntu.com\\tTRUE\\t/\\tTRUE\\t0\\tSRVNAME\\tYOUR_COOKIE_SRVNAME_VALUE_HERE\\n" >> ~/.cache/autopkgtest.cookie
+```
+
+You can now use `curl` to trigger the autopkgtest URLs (e.g., `curl --cookie
+~/.cache/autopkgtest.cookie URL`). If you have a long list of test trigger
+URLs, you can trigger them all with
+
+```
+$ cat TEST_URL_LIST | vipe | xargs -rn1 -P10 curl --cookie ~/.cache/autopkgtest.cookie -o /dev/null --silent --head --write-out '%{url_effective} : %{http_code}\\n'
+```
