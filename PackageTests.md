@@ -49,7 +49,10 @@ cut-and-paste into email or chat channels.
 Once you've gained permissions to run autopkgtests, you can load each of these
 URLs in your web browser yourself, which will cause the appropriate
 autopkgtests to run. If you omit the `--show-url` parameter, `ppa tests` will
-instead display clickable links, making it even more convenient.
+instead display clickable links, making it even more convenient. Alternatively,
+it is possible to [trigger the tests through the command
+line](ProposedMigration.md#triggering-tests-from-the-cli), which is useful when
+you need to trigger several tests.
 
 After a while, run `ppa tests` again to see how the tests are coming along:
 
