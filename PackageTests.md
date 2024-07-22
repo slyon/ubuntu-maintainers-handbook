@@ -158,6 +158,115 @@ $ autopkgtest \
   -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
 ```
 
+Where:
+
+ * `--apt-upgrade`: run apt-get upgrade
+ * `--shell-fail`: stop and give you a shell if there is a failure. Good to debug
+ * `--output-dir dep8-mypackage`: Put your package name in here. Writes output report to the directory dep8-mypackage.
+ * `mypackage/`: Put your package name here. The trailing slash tells it to interpret this as a directory rather than a package name.
+
+Everything after the `--` tells it how to run the tests. `qemu` is shorthand for `autopkgtest-virt-qemu`.
+
+
+#### In a VM, Using the PPA
+
+##### for Ubuntu 20.10 (Groovy Gorilla) and later
+
+```bash
+$ autopkgtest \
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir dep8-mypackage-ppa \
+  --setup-commands="sudo add-apt-repository \
+    --yes \
+    --enable-source \
+    --ppa mylaunchpaduser/mantic-mypackage-fixed-something-1234567" \
+  --no-built-binaries \
+  mypackage \
+  -- qemu /var/lib/adt-images/autopkgtest-mantic-amd64.img
+```
+
+Where (in setup-commands):
+
+ * `--yes`: Assume "yes" for all questions
+ * `--ppa`: Add an Ubuntu Launchpad Personal Package Archive in the format USER/PPA
+ * `--enable-source`: Add 'deb-src' line for the repository
+ * `--no-built-binaries`: Don't build
+
+Note: In this case, the package name **doesn't** have a trailing slash because we want to install the package.
+
+##### for Ubuntu 20.04 LTS (Focal Fossa) and earlier
+
+```bash
+$ autopkgtest \
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir dep8-mypackage-ppa \
+  --setup-commands="sudo add-apt-repository \
+    --yes \
+    --update \
+    --enable-source \
+    ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" \
+  --no-built-binaries mypackage \
+  -- qemu /var/lib/adt-images/autopkgtest-focal-amd64.img
+```
+
+Where (in setup-commands):
+
+ * `--yes`: Assume "yes" for all questions
+ * `--update`: Run apt-update
+ * `--enable-source`: Add 'deb-src' line for the repository
+ * `--no-built-binaries`: Don't build
+
+Note: In this case, the package name **doesn't** have a trailing slash because we want to install the package.
+
+
+#### In a Container, Using the PPA
+
+The command only differs after the `--` part. For example:
+
+##### for Ubuntu 20.10 (Groovy Gorilla) and later
+
+```bash
+$ autopkgtest \
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir dep8-mypackage-ppa \
+  --setup-commands="sudo add-apt-repository \
+    --yes \
+    --enable-source \
+    --ppa mylaunchpaduser/mantic-mypackage-fixed-something-1234567" \
+  --no-built-binaries \
+  mypackage \
+  -- lxd autopkgtest/ubuntu/mantic/amd64
+```
+
+##### for Ubuntu 20.04 LTS (Focal Fossa) and earlier
+
+```bash
+$ autopkgtest \
+  --apt-upgrade \
+  --shell-fail \
+  --output-dir dep8-mypackage-ppa \
+  --setup-commands="sudo add-apt-repository \
+    --yes \
+    --update \
+    --enable-source \
+    ppa:mylaunchpaduser/focal-mypackage-fixed-something-1234567" \
+  --no-built-binaries mypackage \
+  -- lxd autopkgtest/ubuntu/focal/amd64
+```
+
+#### In Canonistack
+
+This is by far the closest in terms of "similarity" to the real autopkgtests since they also run in such an environment.
+But it needs some preparation. First of all you must have been *unlocked for* and have set up [Canonistack](https://wiki.canonical.com/InformationInfrastructure/IS/CanoniStack-BOS01) for yourself.
+
+In going through the set up process for Canonistack, you'll have created an openstack RC file that sets region, auth and other environment variables. Go ahead and source this file, if you haven't already.
+Then you'd look for the image you want to boot like:
+
+```
+
 > Note:
 > * `mypackage/`: Put your package name here. The trailing slash tells it to
   interpret this as a directory rather than a package name.
@@ -171,7 +280,7 @@ Make sure you're one directory up from your package directory and run:
 ```bash
 $ autopkgtest \
   --apt-upgrade \
-  --shell-fail
+  --shell-fail \
   --output-dir dep8-mypackage-ppa \
   --setup-commands="sudo add-apt-repository \
     --yes \
