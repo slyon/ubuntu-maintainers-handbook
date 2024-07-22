@@ -838,6 +838,12 @@ Ubuntu doesn't know about the new tarball yet, so we must create it.
 $ git ubuntu export-orig
 ```
 
+If the upstream version does not yet exist in Ubuntu, that is, the new package from Debian also includes a new upstream version, you should add the `--for-merge` option:
+
+```bash
+$ git ubuntu export-orig --for-merge
+```
+
 If this fails, [do it manually](#get-orig-tarball-manually).
 
 ### Build source package
