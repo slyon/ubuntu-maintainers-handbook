@@ -36,6 +36,7 @@ sudo apt install -y \
     qemu-system \
     quilt \
     sbuild \
+    sbuild-launchpad-chroot \
     ubuntu-dev-tools \
     uvtool \
     virtinst && \
