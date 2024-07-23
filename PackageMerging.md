@@ -844,7 +844,7 @@ If the upstream version does not yet exist in Ubuntu, that is, the new package f
 $ git ubuntu export-orig --for-merge
 ```
 
-If this fails, [do it manually](#get-orig-tarball-manually).
+If this fails, [do it manually](#get-the-orig-tarball-manually).
 
 ### Build source package
 
