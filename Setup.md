@@ -189,9 +189,9 @@ This configures `dput`` for safety, such that if you accidentally forget to
 specify a destination, it'll default to doing nothing.
 
 
-### SBuild
+### sbuild
 
-[SBuild](https://wiki.debian.org/sbuild) is a wrapper script around `schroot`.
+[sbuild](https://wiki.debian.org/sbuild) is a wrapper script around `schroot`.
 
 In these examples, replace `my_user` with your own username.
 
@@ -274,13 +274,13 @@ DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
 
 
 > **Note**: 
-> For more info, see the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
+> For more info, see the [Ubuntu wiki page on sbuild](https://wiki.ubuntu.com/SimpleSbuild)
 
 ### Getting Schroots
 
-Having SBuild set up is only half of the solution, schroot environments for
+Having sbuild set up is only half of the solution, schroot environments for
 the respective builds are also needed.
-As outlined in the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
+As outlined in the [Ubuntu wiki page on sbuild](https://wiki.ubuntu.com/SimpleSbuild)
 one can use e.g. `mk-sbuild noble --arch=amd64` for that.
 But many use sbuild-launchpad-chroot instead which includes two sbuild hooks
 and a command line tool to setup and maintain build chroots that are as close
