@@ -21,21 +21,14 @@ sudo apt install -y \
     build-essential \
     debconf-utils \
     debmake \
-    devscripts \
     dh-make \
-    dpkg-dev \
     git-buildpackage \
-    libvirt-clients \
-    libvirt-daemon \
     libvirt-daemon-system \
-    net-tools \
-    ovmf \
     pastebinit \
     piuparts \
     pkg-config \
-    qemu-system \
     quilt \
-    sbuild \
+    sbuild-launchpad-chroot \
     ubuntu-dev-tools \
     uvtool \
     virtinst && \
@@ -189,9 +182,9 @@ This configures `dput`` for safety, such that if you accidentally forget to
 specify a destination, it'll default to doing nothing.
 
 
-### SBuild
+### sbuild
 
-[SBuild](https://wiki.debian.org/sbuild) is a wrapper script around `schroot`.
+[sbuild](https://wiki.debian.org/sbuild) is a wrapper script around `schroot`.
 
 In these examples, replace `my_user` with your own username.
 
@@ -274,7 +267,42 @@ DEBOOTSTRAP_PROXY=http://127.0.0.1:3142/
 
 
 > **Note**: 
-> For more info, see the [Ubuntu wiki page on SBuild](https://wiki.ubuntu.com/SimpleSbuild)
+> For more info, see the [Ubuntu wiki page on sbuild](https://wiki.ubuntu.com/SimpleSbuild)
+
+### Getting Schroots
+
+Having sbuild set up is only half of the solution, schroot environments for
+the respective builds are also needed.
+As outlined in the [Ubuntu wiki page on sbuild](https://wiki.ubuntu.com/SimpleSbuild)
+one can use e.g. `mk-sbuild noble --arch=amd64` for that.
+But many use sbuild-launchpad-chroot instead which includes two sbuild hooks
+and a command line tool to setup and maintain build chroots that are as close
+as possible to a standard Launchpad sbuild chroot.
+
+```bash
+$ sudo sbuild-launchpad-chroot create -n noble-amd64 -s noble -a amd64
+```
+
+This will create multiple schroots which allow to easily select building against
+different configurations like -proposed or backports.
+
+In general schroots can get stale and there are more and more updates needed
+in a build. They can be updated individually using sbuild-update. The common
+-udcar options map to apt update, dist-upgrade, clean and autoremove.
+
+```bash
+$ sudo sbuild-update -udcar jammy-proposed-amd64
+```
+
+Furthermore sometimes a schroot for Debian is needed to contribute there
+or to compare build results. Those can be created with sbuild-createchroot
+that comes with the sbuild package. We usually add a few packages
+that help us later and refer to where to create and where to get the content.
+Here is an example:
+
+```bash
+$ sudo sbuild-createchroot --include=eatmydata,ccache,gnupg unstable /srv/chroot/unstable-amd64-sbuild http://deb.debian.org/debian
+```
 
 
 ### LXD
