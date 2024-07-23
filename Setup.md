@@ -21,21 +21,13 @@ sudo apt install -y \
     build-essential \
     debconf-utils \
     debmake \
-    devscripts \
     dh-make \
-    dpkg-dev \
     git-buildpackage \
-    libvirt-clients \
-    libvirt-daemon \
     libvirt-daemon-system \
-    net-tools \
-    ovmf \
     pastebinit \
     piuparts \
     pkg-config \
-    qemu-system \
     quilt \
-    sbuild \
     sbuild-launchpad-chroot \
     ubuntu-dev-tools \
     uvtool \
