@@ -22,7 +22,7 @@ Check formal content:
 ### Ensure Documentation/release Notes are updated
 
 * We always did enqueue things that eventually need to be mentioned in the release notes, this check in the MR review is a reminder about that.
-* If the update/merge has implications to that we always updated documentation along changes. Sometimes things get in via a sync or upstream changes, not by us - as we spot these ensure to spawn a proper backlog tracker for it.
+* If the update/merge has implications that need to be documented we always updated documentation alongside changes. Sometimes things get in via a sync or upstream changes, not by us - as we spot these, make sure to spawn a proper backlog tracker for it.
 
 ### Check the commits
 
