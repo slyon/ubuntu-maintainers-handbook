@@ -45,8 +45,8 @@ The following template may be useful when submitting reviews:
   - [ ] Old content and logical tag match as expected (Package Merge)
 
 * Release notes and Documentation
-  - [ ] I have checked and added or updated relevant documentation.
-  - [ ] I have checked and added or updated relevant release notes.
+  - [ ] Added, updated or enqueued relevant documentation.
+  - [ ] Added, updated or enqueued relevant release notes.
 
 * Package Merge - indirect changes:
   - [ ] No upstream changes that need adaptating due to Ubuntu's design
