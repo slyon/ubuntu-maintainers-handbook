@@ -19,6 +19,11 @@ Check formal content:
 * Lists all files changed
 * Proper author and email
 
+### Ensure Documentation/release Notes are updated
+
+* We always did enqueue things that eventually need to be mentioned in the release notes, this check in the MR review is a reminder about that.
+* If the update/merge has implications to that we always updated documentation along changes. Sometimes things get in via a sync or upstream changes, not by us - as we spot these ensure to spawn a proper backlog tracker for it.
+
 ### Check the commits
 
 * Changes are logically split into separate commits
@@ -38,6 +43,10 @@ The following template may be useful when submitting reviews:
   - [ ] Correct formatting of changelog items
   - [ ] Bug references correct
   - [ ] Old content and logical tag match as expected (Package Merge)
+
+* Release notes and Documentation
+  - [ ] I have checked and added or updated relevant documentation.
+  - [ ] I have checked and added or updated relevant release notes.
 
 * Package Merge - indirect changes:
   - [ ] No upstream changes that need adaptating due to Ubuntu's design
