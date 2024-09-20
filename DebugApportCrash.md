@@ -23,6 +23,17 @@ $ sudo apt install ubuntu-dbgsym-keyring
 $ sudo apt update
 ```
 
+or as a deb822 entry:
+
+```bash
+$ cat << EOF > /etc/apt/sources.list.d/ddebs.sources
+Types: deb
+URIs: http://ddebs.ubuntu.com
+Suites: noble noble-updates
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-dbgsym-keyring.gpg
+```
+
 ### Install package with debug symbols
 
 ```bash

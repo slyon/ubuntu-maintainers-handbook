@@ -191,9 +191,11 @@ receive any review or updates from the Ubuntu security team.
 ### APT
 
 The Advanced Packaging Tool, APT, has a command-line tool (`apt`), which uses
-`sources.list` and `sources.list.d` to tell it which suites to use.
+`sources.list` and `sources.list.d` to tell it which suites to use. `apt` has
+two possible formats, `one-line` and `deb822`. `deb822` has been the default
+since [Noble Numbat 24.04](https://discourse.ubuntu.com/t/ubuntu-24-04-lts-noble-numbat-release-notes/39890#deb822-sources-management). 
 
-For example `/etc/apt/sources.list`:
+`one-line` example `/etc/apt/sources.list`:
 
 ```text
 deb http://archive.ubuntu.com/ubuntu/ focal main restricted universe
@@ -207,6 +209,24 @@ deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe
 deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe
 # deb-src http://security.ubuntu.com/ubuntu/ focal-security main restricted universe
 ```
+
+`deb822` example:
+
+```text
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb-src
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+Note that in deb822 format, `deb` and `deb-src` can be combined in the `Types` key.
+They are shown separated here for easier commenting out.
 
 When `apt` encounters multiple versions of a package, it uses an internal
 scoring system to decide which version should be installed.
