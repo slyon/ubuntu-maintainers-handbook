@@ -49,7 +49,7 @@ The following template may be useful when submitting reviews:
   - [ ] Added, updated or enqueued relevant release notes.
 
 * Package Merge - indirect changes:
-  - [ ] No upstream changes that need adaptating due to Ubuntu's design
+  - [ ] No upstream changes that need adapting due to Ubuntu's design
   - [ ] No further upstream version/changes to consider
   - [ ] Debian changes are compatible with the Ubuntu implementation
   - [ ] update-maintainer has been run
