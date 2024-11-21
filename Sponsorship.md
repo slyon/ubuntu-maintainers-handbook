@@ -69,3 +69,18 @@ You should also keep good notes of who has
 which packages they sponsored, and what team or part of the distribution they
 work on. These notes will be helpful both for finding sponsors in the future,
 and as endorsers on your future applications for upload rights.
+
+## Sponsor a package
+
+This is not very different than uploading your own, but after ensuring that
+the upload follows all quality standards you want to sign their content
+with your key.
+
+To do so you need to tools (`dpkg-buildpackage` or `debsign`) know about that.
+Otherwise the tools would try to find and sign with the key of the person
+that is referred to in the changelog stanza.
+
+To define the key you want to sign with you can:
+
+* Set the environment variable DEB_SIGN_KEYID, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
+* Or add the argument `-k${GPGKEY}` assuming you have your key in that variable.

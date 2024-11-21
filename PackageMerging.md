@@ -864,13 +864,12 @@ The switches are:
 
 Changes should be from the last Ubuntu version.
 
-If you are sponsoring this package for someone else you will also need
-to let the tool know that you want to sign the upload of this person with
-your key. Otherwise it would try to find and sign with the key of the person
-that is in the changelog stanza. To do that:
-
-* Add the argument `--sign-keyid=${GPGKEY}` = assuming you have your key in that variable.
-* Or as an alternative to this argument set the environment variable DEB_SIGN_KEYID, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
+If sponsoring a merge or any other upload for someone else, please remember the
+need to sign their upload with your key. See[Sponsor a package](Sponsorship.md#sponsor-a-package)
+for more information about that.
+Furthermore just like you the sponsor needs to know about e.g. setting `-v`
+right and using `-sa` when needed. If in doubt, coordinating with them will
+be helpful.
 
 ### Push to your Launchpad repository
 
