@@ -864,6 +864,14 @@ The switches are:
 
 Changes should be from the last Ubuntu version.
 
+If you are sponsoring this package for someone else you will also need
+to let the tool know that you want to sign the upload of this person with
+your key. Otherwise it would try to find and sign with the key of the person
+that is in the changelog stanza. To do that:
+
+* Add the argument `--sign-keyid=${GPGKEY}` = assuming you have your key in that variable.
+* Or as an alternative to this argument set the environment variable DEB_SIGN_KEYID, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
+
 ### Push to your Launchpad repository
 
 Now that the package is tested and builds successfully, it's time to push it
