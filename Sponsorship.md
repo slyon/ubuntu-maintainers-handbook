@@ -33,7 +33,7 @@ alternative approaches that may save you time or provide a better result.
 
 ## Find a sponsor
 
-There are two formal ways to seek sponsorship, and one informal. 
+There are two formal ways to seek sponsorship, and one informal.
 
 The first is by filing a merge proposal with `canonical-<your-team>` (e.g.
 `canonical-server-reporter` for server team members) set as a reviewer. Make
