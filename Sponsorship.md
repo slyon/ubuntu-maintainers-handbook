@@ -72,15 +72,16 @@ and as endorsers on your future applications for upload rights.
 
 ## Sponsor a package
 
-This is not very different than uploading your own, but after ensuring that
-the upload follows all quality standards you want to sign their content
-with your key.
+This is not very different than uploading your own `.changes` file, but after
+ensuring that the upload follows all quality standards you want to sign the
+content of the proposing person with your key.
 
-To do so you need to tools (`dpkg-buildpackage` or `debsign`) know about that.
-Otherwise the tools would try to find and sign with the key of the person
-that is referred to in the changelog stanza.
+To achieve that, the tools used in package build (like `dpkg-buildpackage`
+and `debsign`) need to know about that desire. Otherwise these tools would
+identify the person that is referred in the changelog stanza and try to sign
+with the key of this person.
 
-To define the key you want to sign with you can:
+To define the key you want to be used for signing you can:
 
-* Set the environment variable DEB_SIGN_KEYID, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
-* Or add the argument `-k${GPGKEY}` assuming you have your key in that variable.
+* Set the environment variable `DEB_SIGN_KEYID`, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
+* Or where desired add the argument `-k${GPGKEY}` assuming you have your key in that variable and in long (>=16) format.
