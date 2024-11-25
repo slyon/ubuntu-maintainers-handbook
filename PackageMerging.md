@@ -864,7 +864,7 @@ The switches are:
 
 Since our merge upload represents all changes that happened in Debian since
 our last merge plus anything added as part of the merge itself `-v` should
-usually point to the last published Ubuntu version. Here an example:
+usually point to the last published Ubuntu version. Here's an example:
 
 * Ubuntu merged as `1.3-1ubuntu1`
 * Then Ubuntu had a fix in `1.3-1ubuntu2`
@@ -873,10 +873,10 @@ usually point to the last published Ubuntu version. Here an example:
 * New Ubuntu will be `1.4-2ubuntu1`
 * `-v` should here be set to `1.3-1ubuntu2`
   * Thereby the .changes file will include `1.4-1`, `1.4-2`, and `1.4-2ubuntu1`
-  * That represents all the changes that happened from the perspective of a Ubuntu user that will upgrade from `1.3-1ubuntu2 to `1.4-2ubuntu1`
+  * That represents all the changes that happened from the perspective of an Ubuntu user upgrading from `1.3-1ubuntu2 to `1.4-2ubuntu1`
 
 If sponsoring a merge or any other upload for someone else, please remember the
-need to sign their upload with your key. See[Sponsor a package](Sponsorship.md#sponsor-a-package)
+need to sign their upload with your key. See [Sponsor a package](Sponsorship.md#sponsor-a-package)
 for more information about that.
 Furthermore just like you the sponsor needs to know about e.g. setting `-v`
 right and using `-sa` when needed. If in doubt, coordinating with them will
