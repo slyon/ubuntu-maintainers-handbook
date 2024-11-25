@@ -33,7 +33,7 @@ alternative approaches that may save you time or provide a better result.
 
 ## Find a sponsor
 
-There are two formal ways to seek sponsorship, and one informal. 
+There are two formal ways to seek sponsorship, and one informal.
 
 The first is by filing a merge proposal with `canonical-<your-team>` (e.g.
 `canonical-server-reporter` for server team members) set as a reviewer. Make
@@ -69,3 +69,19 @@ You should also keep good notes of who has
 which packages they sponsored, and what team or part of the distribution they
 work on. These notes will be helpful both for finding sponsors in the future,
 and as endorsers on your future applications for upload rights.
+
+## Sponsor a package
+
+This is not very different than uploading your own `.changes` file, but after
+ensuring that the upload follows all quality standards you want to sign the
+content of the proposing person with your key.
+
+To achieve that, the tools used in package build (like `dpkg-buildpackage`
+and `debsign`) need to know about that desire. Otherwise these tools would
+identify the person that is referred in the changelog stanza and try to sign
+with the key of this person.
+
+To define the key you want to be used for signing you can:
+
+* Set the environment variable `DEB_SIGN_KEYID`, see the [dpkg-buildpackage man page](https://manpages.ubuntu.com/manpages/noble/man1/dpkg-buildpackage.1.html) for more.
+* Or where desired add the argument `-k${GPGKEY}` assuming you have your key in that variable and in long (>=16) format.
