@@ -67,7 +67,7 @@ The mentioned special case of an _upstream merge_ is triggered when Ubuntu merge
 upstream. In this case the new version shall:
 
 * Reflect that it was not yet packaged in Debian (at this point in time) and thereby is not _really_ based on a Debian version by using `-0` as the Debian version suffix.
-* Represent that there are Ubuntu changes via `ubuntu1` which also serves as a place increment for further uploads to the development release.
+* Represent that this is the first devel upload via `ubuntu1` which also serves as a place increment for further uploads to the development release.
 
 > Example in detail: _Uploading `3.1` to Ubuntu -Devel while Debian is not yet at `3.1` so we pick `3.1` followed by `-0` representing it is not based on Debian and `ubuntu1` to index and iterate changes to Ubuntu to an overall `3.1-0ubuntu1`._
 
