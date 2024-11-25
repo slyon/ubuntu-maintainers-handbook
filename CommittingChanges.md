@@ -27,6 +27,26 @@ Simple example:
     <miles.obrien@ds9.fed>. (LP: #19999999)
 ```
 
+To add additional information to a commit message, or to format for readability, use `--CL--`. git-ubuntu will ignore all lines prior to it. Here is the previous example with this change:
+
+```text
+Reroute inertial dampeners through auxiliary power relay
+
+Modify the energy distribution system to reroute the inertial dampeners through
+the auxiliary power relay, ensuring consistent operation during peak load
+scenarios or primary power fluctuations. Adjust the power management algorithm,
+prioritizing stability under high-stress maneuvers.
+
+UD-Forwarded: no, ubuntu-specific
+
+--CL--
+  * debian/patches/my-changes.diff: Reroute the inertial dampeners
+    through the auxiliary power relay. Thanks to Miles O'Brien
+    <miles.obrien@ds9.fed>. (LP: #19999999)
+```
+
+The `UD-Forwarded` tag is an optional addition that describes the status of this change in Debian. The tag includes `yes` followed by the link to the forwarded commit, or `no` followed by an explanation. `ubuntu-specific` is standard for Ubuntu-only changes.
+
 This style of commit message makes integration with the other tools you'll be
 using easier because it's already in changelog format. The `(LP: #12345678)` at
 the end will auto-close that bug once the package is published to updates.
