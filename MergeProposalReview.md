@@ -14,7 +14,7 @@ Check formal content:
 
 * Contains a bug pointer like `(LP: #12345678)` to 
 * Correctly formatted entries according to the [changelog policy](https://www.debian.org/doc/debian-policy/ch-source.html#debian-changelog-debian-changelog) and our [hints](PackageMerging.md#fix-the-changelog) for merges
-* Lists all changed made - the changelog shall be a complete representation
+* Lists all changes made - the changelog shall be a complete representation
 * Proper version - check against [Version Strings](VersionStrings.md)
 * Proper release - `dch` or habits could have selected the wrong one
 * Proper author and email
@@ -26,9 +26,9 @@ Check formal content:
 
 ### Check for indirect changes
 
-* Some changes can imply that the packaging needs to be adaptes. Check content and release notes if there are any changes like that.
-* When merging from Debian or Upstream it is worth to check if there are even newer versions that would be worth to go for.
-  * bad things happen, check upstream if a release has been withdrawn or needs an immediate fixup due to unintentional breakage.
+* Some changes can imply that the packaging needs to be adapted. Check content and release notes if there are any changes like that.
+* When merging from Debian or Upstream it is worth checking if there are even newer versions that would be worth it to go for.
+  * Bad things happen, check upstream if a release has been withdrawn or needs an immediate fix-up due to unintentional breakage.
 * Ensure that the changes in Debian do not imply that we need to update the delta we carry (do not be fooled by applying cleanly)
 * Ensure update maintainer has been run
 
@@ -50,14 +50,14 @@ Check formal content:
 
 ### Check for Git/maintenance
 
-* Changes are logically split into separate commits (to easen future merges and cherry picking to other releases)
+* Changes are logically split into separate commits (to ease future merges and cherry picking to other releases)
 
 ### Check for Build and Test
 
 * Ensure the build in the PPA is ok on all architectures it is meant to build
-* If this is an SRU consider checking the SRU template in the bug to be ok, especially the test instructions are often only understandable for the reporter. We want them to be good before SRU review.
+* If this is an SRU consider checking that the SRU template in the bug is OK. Test instructions especially are often only understandable for the reporter. We want them to be good before SRU review.
 * If applicable relative to the changes made, consider if tests should be added, adapted or extended
-* Too many cases have been caught late and then intertwined in proposed-migration, testing autopkgtest on the PPA helps to be confident before entering the archive
+* Too many cases have been caught late and then intertwined in proposed-migration. Testing autopkgtest on the PPA helps to be confident before entering the archive
 * Depending on the case the test PPA might be used to install and sanity check the builds
 
 
