@@ -45,7 +45,7 @@ Check formal content:
 * Do the patches [Follows DEP-3](http://dep.debian.net/deps/dep3/)
   * You can use dep3changelog to verify the headers, as well as generate a changelog entry.
 * Do the patches match what is (proposed) upstream?
-  * To be clear, if a certain case asks for violating this rule it is ok, but it should be a consicous decision not an accident
+  * To be clear, if a certain case asks for violating this rule it is ok, but it should be a conscious decision not an accident
   * The intention is to avoid deviating the code we maintain too much from how the project continues to evolve (hard to maintain well over long periods).
 * Are the patches applied the right way according to `debian/source/format`?
 
