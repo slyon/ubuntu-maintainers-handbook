@@ -59,7 +59,9 @@ Check formal content:
 * If this is an SRU consider checking that the SRU template in the bug is OK. Test instructions especially are often only understandable for the reporter. We want them to be good before SRU review.
 * If applicable relative to the changes made, consider if tests should be added, adapted or extended
 * Too many cases have been caught late and then intertwined in proposed-migration. Testing autopkgtest on the PPA helps to be confident before entering the archive
-* Depending on the case the test PPA might be used to install and sanity check the builds
+* Depending on the case the test PPA might be used to install and verify functionality of the builds
+  * This is very much an optional service the reviewer can, but does not have to, provide
+  * If possible this should not be done by humans, but autopkgtests. And if it isn't consider adding them. But still sometimes there are situations where one wants to do a quick manual verification to be sure.
 
 
 ## Review template
@@ -109,5 +111,5 @@ N = not applicable to this case
   - [ ] Testcases added or adapted (N/A if not strictly required or already present)
   - [ ] autopkgtest against the PPA package passes (if possible, evidence was provided already)
   - [ ] Verified PPA package installs/uninstalls
-  - [ ] sanity checks test fine
+  - [ ] Verified function manually
 ```
