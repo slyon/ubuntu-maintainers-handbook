@@ -66,6 +66,12 @@ Check formal content:
 The following template may be useful when submitting reviews:
 
 ```
+Review Symbols:
+x = OK
+- = not OK - reasons outlined in the lines below
+? = question - asked in the lines below
+N = not applicable to this case
+
 * Changelog:
   - [ ] Changelog entry has correct version and targeted codename
   - [ ] Correct formatting of changelog items
