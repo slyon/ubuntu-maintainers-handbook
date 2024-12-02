@@ -121,7 +121,7 @@ Due to that in a Debian native package, there is no `-debian_revision`.
 
 This continues into native Ubuntu packages, which have neither `-debian_revision` nor `ubuntu[ubuntu_revision]`.
 
-> Example in detail: _A package native to Debian `2.0` (no `-`), getting an Ubuntu change in the devel release would use `2.0ubuntu1`
+> Example in detail: _A package native to Debian `2.0` (no `-`), getting an Ubuntu change in the devel release would use `2.0ubuntu1`_
 
 Furthermore native package versioning is package dependent; whether if it uses only _major_, or a _major.minor_, or any other version pattern is the maintainer's choice.
 Just as usually upstream can and will version software the way they consider the best.
