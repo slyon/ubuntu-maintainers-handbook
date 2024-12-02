@@ -4,7 +4,7 @@ Version string format
 Selecting the right [version](https://manpages.ubuntu.com/manpages/man7/deb-version.7.html)
 can be quite complex as there are many conditions that need to be considered.
 The following paragraphs first link to the required basics, which are shared with Debian.
-Then each paragraph explains situationis that might occur in an upload to Ubuntu.
+Then each paragraph explains situations that might occur in an upload to Ubuntu.
 
 ## The Version field
 
