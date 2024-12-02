@@ -117,9 +117,9 @@ Thank you for taking the time to report bugs and help make Ubuntu better.
 
 This bug has been fixed in the current Ubuntu development release, which is why I'm marking it "Fix Released" (the bug status follows what's in the development release).
 
-In order for the fix to be backported to earlier Ubuntu releases, it must qualify as a high-impact bug: https://wiki.ubuntu.com/StableReleaseUpdates#When
+In order for the fix to be backported to earlier Ubuntu releases, it must qualify as a high-impact bug: https://canonical-sru-docs.readthedocs-hosted.com/en/latest/reference/requirements/#what-is-acceptable-to-sru
 
-If it's important to have it fixed in an earlier Ubuntu release, please do as many steps as you can from https://wiki.ubuntu.com/StableReleaseUpdates#Procedure and update this bug ticket with your progress.
+If it's important to have it fixed in an earlier Ubuntu release, please do as many steps as you can from https://canonical-sru-docs.readthedocs-hosted.com/en/latest/howto/standard/ and update this bug ticket with your progress.
 
 The SRU team will review and advise you on the next steps to get it in place.
 

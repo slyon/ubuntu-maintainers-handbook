@@ -26,7 +26,7 @@ Here is the typical lifecycle for an upload:
    * Does it cause anything to become uninstallable?
    * etc.
 1. If (and only if) the fix is an SRU:
-   * [SRU bug](https://wiki.ubuntu.com/StableReleaseUpdates#Verification)
+   * [SRU bug](https://canonical-sru-docs.readthedocs-hosted.com/en/latest/howto/common-issues/)
      updated with request to verify
    * Reporter or developer verifies fix, and updates tags
 1. Release package from `[codename]-proposed` to `[codename]`

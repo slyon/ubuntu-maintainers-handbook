@@ -45,7 +45,7 @@ flowchart TD
             ProposeMigration(("<a href=https://wiki.ubuntu.com/ProposedMigration>Proposed Migration</a>")):::task
             UnderstandDep8{{"<a href=https://salsa.debian.org/ci-team/autopkgtest/blob/master/doc/README.package-tests.rst>Understand DEP8</a>"}}:::study
             AddAUTOPKGTESTS(("<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/PackageTests.md>Add Autopkgtest</a>")):::task
-            SRU{{"<a href=https://wiki.ubuntu.com/StableReleaseUpdates>Study SRU</a>"}}:::study
+            SRU{{"<a href=https://canonical-sru-docs.readthedocs-hosted.com/>Study SRU</a>"}}:::study
             DoSRUS(("Do SRUS")):::task
 
             %% Transitions
