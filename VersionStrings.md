@@ -184,7 +184,7 @@ List of this and further related examples:
 It is unlikely, but possible that one needs a no change rebuild as part of a [Stable release update](https://canonical-sru-docs.readthedocs-hosted.com),
 but in this situation auto-syncing isn't active anyway and the need for upgradability applies.
 So a no-change-rebuild in regard to picking a version number in this case is identical to any other change
-(see the section _(adding a change in Ubuntu as a stable release update)[VersionStrings.md#version-adding-a-change-in-ubuntu-as-a-stable-release-update]_ above).
+(see the section _[adding a change in Ubuntu as a stable release update](VersionStrings.md#version-adding-a-change-in-ubuntu-as-a-stable-release-update)_ above).
 
 
 ## Version: Backport from upstream
