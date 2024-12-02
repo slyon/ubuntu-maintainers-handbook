@@ -81,7 +81,7 @@
     - [ ]  dput signed changes file
 - [ ]  **5.** Optional: SRU/MIR/FFe template
     
-    [[SRU]](https://wiki.ubuntu.com/StableReleaseUpdates#SRU_Bug_Template)
+    [[SRU]](https://canonical-sru-docs.readthedocs-hosted.com/en/latest/reference/bug-template/)
     [[MIR]](https://wiki.ubuntu.com/MainInclusionProcess#Main_Inclusion_requirements)
     [[FFe]](https://wiki.ubuntu.com/FreezeExceptionProcess#FeatureFreeze_Exceptions):
      ```

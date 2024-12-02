@@ -17,7 +17,7 @@ continue, to make sure you are familiar with the concepts:
 * [git-ubuntu-clone](https://ubuntu.com/blog/git-ubuntu-clone)
 * [DEP-3](http://dep.debian.net/deps/dep3)
 * [Version string formats](VersionStrings.md)
-* [Stable Release Updates (SRUs)](https://wiki.ubuntu.com/StableReleaseUpdates)
+* [Stable Release Updates (SRUs)](https://canonical-sru-docs.readthedocs-hosted.com/)
 
 ## Evaluate the Bug
 
@@ -575,7 +575,7 @@ Go back to the
 [example bug report](https://bugs.launchpad.net/ubuntu/+source/postfix/+bug/1753470).
 
 Modify the bug description (yellow pencil icon) and update it to conform with
-[the SRU bug template](https://wiki.ubuntu.com/StableReleaseUpdates#SRU_Bug_Template).
+[the SRU bug template](https://canonical-sru-docs.readthedocs-hosted.com/en/latest/reference/bug-template/).
 These are normally the "Impact", "Test Case" and "Where problems could occur"
 sections.
 
@@ -753,7 +753,7 @@ anything that depends on it. Any tests that fail will show in red.
 It's best to have the package independently verified (preferably by the person
 who reported the bug), but if it sits idle too long (2 days or so), you can
 verify it yourself. Follow the
-[instructions provided](https://wiki.ubuntu.com/StableReleaseUpdates#Verification)
+[instructions provided](https://canonical-sru-docs.readthedocs-hosted.com/en/latest/howto/common-issues/)
 by the SRU team, which usually means changing the "verification-needed" tag
 into "verification-done".
 
